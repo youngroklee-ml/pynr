@@ -1,0 +1,7 @@
+Package: pynr
+Type: Book
+Title: Python and R
+Version: 0.0.0.9000
+URL: https://github.com/youngroklee-ml/pynr
+Imports: bookdown, ggplot2, icon
+Remotes: ropenscilabs/icon
