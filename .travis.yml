@@ -1,5 +1,7 @@
 language: R
-cache: packages
+cache:                        
+  packages: true              
+  directories: _bookdown_files
 pandoc_version: 2.3.1
 
 script:
