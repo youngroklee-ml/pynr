@@ -35,7 +35,8 @@ R의 경우에는 list(보다 구체적으로 named list)와 environment가 세 
 
 전체 원소 갯수가 미리 정해지지 않은 경우에는 새로운 원소가 들어올 때마다 하나씩 원소를 추가해야 한다. 다음처럼 for loop를 사용하여 원소를 순차적으로 추가하는 시뮬레이션 함수를 만들자. 이 때, key 값을 "item1", "item2", ... 와 같이 지정하자.
 
-```{python}
+
+```python
 def gen_dict(n):
   ret = {}
   for x in range(1, n + 1):
@@ -47,8 +48,13 @@ py_dict = gen_dict(10000)
 
 결과를 출력할 때, 원소가 입력된 순서가 보존되어 출력된다.
 
-```{python}
+
+```python
 [x for x in py_dict.__iter__()][:10]
+```
+
+```
+## ['item1', 'item2', 'item3', 'item4', 'item5', 'item6', 'item7', 'item8', 'item9', 'item10']
 ```
 
 
@@ -56,20 +62,35 @@ py_dict = gen_dict(10000)
 
 Key가 "item100"인 원소의 값을 다음과 같이 얻을 수 있다.
 
-```{python}
+
+```python
 py_dict['item100']
+```
+
+```
+## 100
 ```
 
 Dictionary의 경우 position을 사용할 수 없다.
 
-```{python, error=TRUE}
+
+```python
 py_dict[99]
+```
+
+```
+## Error in py_call_impl(callable, dots$args, dots$keywords): KeyError: 99
 ```
 
 또한, dictionary의 경우 여러 key를 사용하여 한꺼번에 여러 원소의 값을 읽을 수 없다.
 
-```{python, error=TRUE}
+
+```python
 py_dict[['item1', 'item2', 'item3']]
+```
+
+```
+## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: unhashable type: 'list'
 ```
 
 
@@ -77,14 +98,31 @@ py_dict[['item1', 'item2', 'item3']]
 
 두 개의 객체 이름이 같은 dictionary 객체에 binding되었다면, 하나의 객체 이름을 이용하여 특정 원소의 값을 변경하였을 때, reference semantics에 의해 다른 하나의 객체 이름을 이용한 참조 시에도 변경된 값이 나타난다.
 
-```{python}
-id(py_dict)
 
+```python
+id(py_dict)
+```
+
+```
+## 4525661056
+```
+
+```python
 new_dict = py_dict
 new_dict['item100'] = 0
 id(new_dict)
+```
 
+```
+## 4525661056
+```
+
+```python
 py_dict['item100']
+```
+
+```
+## 0
 ```
 
 
@@ -98,7 +136,8 @@ py_dict['item100']
 
 우선 named list를 생성해 보자. 아래 함수가 리스트 길이 `n`을 인자로 받기 때문에, 빈 리스트를 만든 뒤에 원소를 하나씩 추가하는 코드가 비효율적으로 보일 것이다. 하지만, 여기에서 시뮬레이션을 하려는 상황이 우리가 미리 얼마나 많은 원소가 언제 어떤 이름과 값으로 생성될 지 모르는 상황이라는 점을 기억하자. 따라서, 아래 함수는 단지 비어있는 리스트로 시작하여 원소를 하나씩 추가해야만 하는 경우 수행 시간이 얼마나 걸릴지를 시뮬레이션하기 위한 코드이다. 
 
-```{r}
+
+```r
 gen_list <- function(n) {
   ret <- list()
   for (x in seq_len(n)) {
@@ -110,8 +149,14 @@ gen_list <- function(n) {
 system.time(r_list <- gen_list(10000))
 ```
 
+```
+##    user  system elapsed 
+##   0.768   0.021   0.789
+```
 
-```{r}
+
+
+```r
 gen_env <- function(n) {
   ret <- new.env()
   for (x in seq_len(n)) {
@@ -123,14 +168,33 @@ gen_env <- function(n) {
 system.time(r_env <- gen_env(10000))
 ```
 
+```
+##    user  system elapsed 
+##   0.030   0.000   0.031
+```
+
 이 결과에서, list에 원소를 하나씩 새로 추가하는 것(즉, 길이가 하나씩 증가하는 것)에 비해, environment에 원소를 하나씩 새로 추가하는 시간이 훨씬 짧게 소요되는 것을 확인할 수 있다. 그 차이는 원소의 갯수가 많을수록 더 커진다.
 
 
 다음 코드는 원소가 입력된 순서가 보존되는지 확인하기 위한 코드이다.
 
-```{r}
+
+```r
 names(r_list)[1:10]
+```
+
+```
+##  [1] "item1"  "item2"  "item3"  "item4"  "item5"  "item6"  "item7"  "item8" 
+##  [9] "item9"  "item10"
+```
+
+```r
 names(r_env)[1:10]
+```
+
+```
+##  [1] "item7082" "item7083" "item7084" "item7085" "item7086" "item5320"
+##  [7] "item7087" "item5321" "item7088" "item5322"
 ```
 
 이 결과에서, list는 순서가 보존되지만, environment는 그렇지 않음을 볼 수 있다. 따라서, 원소 입력 순서를 아는 것이 중요하지 않은 경우에만 environment를 사용하는 것이 적합할 것이다.
@@ -140,18 +204,39 @@ names(r_env)[1:10]
 
 Named list와 environment 모두 원소의 이름을 사용하여 원소의 값을 읽어올 수 있다.
 
-```{r}
+
+```r
 r_list[["item100"]]
+```
+
+```
+## [1] 100
+```
+
+```r
 r_env[["item100"]]
+```
+
+```
+## [1] 100
 ```
 
 하지만 그 수행 시간은 사뭇 다르다. 다음 벤치마크를 보자.
 
-```{r}
+
+```r
 bench::mark(
   r_list[["item100"]],
   r_env[["item100"]]
 )
+```
+
+```
+## # A tibble: 2 × 6
+##   expression               min   median `itr/sec` mem_alloc `gc/sec`
+##   <bch:expr>          <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+## 1 r_list[["item100"]]   1.04µs   1.17µs   845015.        0B        0
+## 2 r_env[["item100"]]      83ns    125ns  6819017.        0B        0
 ```
 
 수행 시간의 `median`값을 볼 때, 이 예에서 environment가 list보다 몇 배 더 빠르다는 것을 확인할 수 있다.
@@ -159,17 +244,48 @@ bench::mark(
 
 Environment는 파이썬의 dictionary와 마찬가지로 position을 사용하거나 여러 원소 이름을 동시에 사용하여 원소값을 읽을 수 없다.
 
-```{r, error=TRUE}
+
+```r
 r_env[[100]]
+```
+
+```
+## Error in r_env[[100]]: wrong arguments for subsetting an environment
+```
+
+```r
 r_env[c("item1", "item2", "item3")]
+```
+
+```
+## Error in r_env[c("item1", "item2", "item3")]: object of type 'environment' is not subsettable
 ```
 
 
 하지만 list는 이것이 가능하다.
 
-```{r}
+
+```r
 r_list[[100]]
+```
+
+```
+## [1] 100
+```
+
+```r
 r_list[c("item1", "item2", "item3")]
+```
+
+```
+## $item1
+## [1] 1
+## 
+## $item2
+## [1] 2
+## 
+## $item3
+## [1] 3
 ```
 
 
@@ -178,27 +294,61 @@ r_list[c("item1", "item2", "item3")]
 
 Environment는 reference semantics을 지녀 modify-in-place 방식으로 작동한다.
 
-```{r}
-pryr::address(r_env)
 
+```r
+pryr::address(r_env)
+```
+
+```
+## [1] "0x7fca90279190"
+```
+
+```r
 new_env <- r_env
 new_env[['item100']] = 0
 pryr::address(new_env)
+```
 
+```
+## [1] "0x7fca90279190"
+```
+
+```r
 r_env[['item100']]
+```
+
+```
+## [1] 0
 ```
 
 
 반면, list는 copy-on-modify 방식으로 작동한다.
 
-```{r}
-pryr::address(r_list)
 
+```r
+pryr::address(r_list)
+```
+
+```
+## [1] "0x7fca890c0000"
+```
+
+```r
 new_list <- r_list
 new_list[['item100']] = 0
 pryr::address(new_list)
+```
 
+```
+## [1] "0x7fca991e0000"
+```
+
+```r
 r_list[['item100']]
+```
+
+```
+## [1] 100
 ```
 
 
@@ -207,15 +357,41 @@ r_list[['item100']]
 
 R의 named list는 name의 중복을 허용한다. 
 
-```{r}
+
+```r
 names(new_list) <- rep("item100", length(new_list))
 head(new_list)
 ```
 
+```
+## $item100
+## [1] 1
+## 
+## $item100
+## [1] 2
+## 
+## $item100
+## [1] 3
+## 
+## $item100
+## [1] 4
+## 
+## $item100
+## [1] 5
+## 
+## $item100
+## [1] 6
+```
+
 이 경우, 원소의 이름을 사용하여 원소를 찾는 과정이 모호해진다. 원소 이름이 일치하는 첫 번째 원소만을 반환할 것이다.
 
-```{r}
+
+```r
 new_list[["item100"]]
+```
+
+```
+## [1] 1
 ```
 
 

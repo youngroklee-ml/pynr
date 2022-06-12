@@ -11,3 +11,11 @@ named-list-vs-environment-in-r
 lookup-1
 reference-semantics-1
 uniqueness
+tuple-list-list
+tuple-vs-list-in-python
+immutable-vs-mutable
+mutable-element-of-tuple
+append-items
+list-in-r
+mutable-object
+append-items-1
