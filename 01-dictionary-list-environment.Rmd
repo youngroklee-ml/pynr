@@ -150,7 +150,8 @@ r_env[["item100"]]
 ```{r}
 bench::mark(
   r_list[["item100"]],
-  r_env[["item100"]]
+  r_env[["item100"]],
+  time_unit = "ns"
 )
 ```
 
