@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 파이썬의 array, 그리고 R의 vector | Python &amp; R</title>
+  <meta name="description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
+어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
+R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 파이썬의 array, 그리고 R의 vector | Python &amp; R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
+어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
+R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>" />
+  <meta name="github-repo" content="youngroklee-ml/pynr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 파이썬의 array, 그리고 R의 vector | Python &amp; R" />
+  
+  <meta name="twitter:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
+어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
+R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>" />
+  
+
+<meta name="author" content="이영록" />
+
+
+<meta name="date" content="2022-06-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tuple-list-list.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Python & R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#python"><i class="fa fa-check"></i><b>1.1</b> Python</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#r"><i class="fa fa-check"></i><b>1.2</b> R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html"><i class="fa fa-check"></i><b>2</b> 파이썬의 dictionary, 그리고 R의 named list와 environment</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#dictionary-in-python"><i class="fa fa-check"></i><b>2.1</b> Dictionary in Python</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#생성"><i class="fa fa-check"></i><b>2.1.1</b> 생성</a></li>
+<li class="chapter" data-level="2.1.2" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#lookup"><i class="fa fa-check"></i><b>2.1.2</b> Lookup</a></li>
+<li class="chapter" data-level="2.1.3" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#reference-semantics"><i class="fa fa-check"></i><b>2.1.3</b> Reference semantics</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#named-list-vs-environment-in-r"><i class="fa fa-check"></i><b>2.2</b> Named list vs environment in R</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#생성-1"><i class="fa fa-check"></i><b>2.2.1</b> 생성</a></li>
+<li class="chapter" data-level="2.2.2" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#lookup-1"><i class="fa fa-check"></i><b>2.2.2</b> Lookup</a></li>
+<li class="chapter" data-level="2.2.3" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#reference-semantics-1"><i class="fa fa-check"></i><b>2.2.3</b> Reference semantics</a></li>
+<li class="chapter" data-level="2.2.4" data-path="dictionary-named-list-environment.html"><a href="dictionary-named-list-environment.html#uniqueness"><i class="fa fa-check"></i><b>2.2.4</b> Uniqueness</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tuple-list-list.html"><a href="tuple-list-list.html"><i class="fa fa-check"></i><b>3</b> 파이썬의 tuple과 list, 그리고 R의 list</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="tuple-list-list.html"><a href="tuple-list-list.html#tuple-vs-list-in-python"><i class="fa fa-check"></i><b>3.1</b> Tuple vs list in Python</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="tuple-list-list.html"><a href="tuple-list-list.html#immutable-vs-mutable"><i class="fa fa-check"></i><b>3.1.1</b> Immutable vs mutable</a></li>
+<li class="chapter" data-level="3.1.2" data-path="tuple-list-list.html"><a href="tuple-list-list.html#append-items"><i class="fa fa-check"></i><b>3.1.2</b> Append items</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="tuple-list-list.html"><a href="tuple-list-list.html#list-in-r"><i class="fa fa-check"></i><b>3.2</b> List in R</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="tuple-list-list.html"><a href="tuple-list-list.html#mutable-object"><i class="fa fa-check"></i><b>3.2.1</b> Mutable object</a></li>
+<li class="chapter" data-level="3.2.2" data-path="tuple-list-list.html"><a href="tuple-list-list.html#append-items-1"><i class="fa fa-check"></i><b>3.2.2</b> Append items</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="array-vector.html"><a href="array-vector.html"><i class="fa fa-check"></i><b>4</b> 파이썬의 array, 그리고 R의 vector</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="array-vector.html"><a href="array-vector.html#파이썬의-array"><i class="fa fa-check"></i><b>4.1</b> 파이썬의 array</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="array-vector.html"><a href="array-vector.html#mutability"><i class="fa fa-check"></i><b>4.1.1</b> Mutability</a></li>
+<li class="chapter" data-level="4.1.2" data-path="array-vector.html"><a href="array-vector.html#다른-타입의-원소-입력하기"><i class="fa fa-check"></i><b>4.1.2</b> 다른 타입의 원소 입력하기</a></li>
+<li class="chapter" data-level="4.1.3" data-path="array-vector.html"><a href="array-vector.html#원소-추가하기"><i class="fa fa-check"></i><b>4.1.3</b> 원소 추가하기</a></li>
+<li class="chapter" data-level="4.1.4" data-path="array-vector.html"><a href="array-vector.html#문자열-시퀀스"><i class="fa fa-check"></i><b>4.1.4</b> 문자열 시퀀스</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="array-vector.html"><a href="array-vector.html#r의-vector"><i class="fa fa-check"></i><b>4.2</b> R의 vector</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="array-vector.html"><a href="array-vector.html#mutability-1"><i class="fa fa-check"></i><b>4.2.1</b> Mutability</a></li>
+<li class="chapter" data-level="4.2.2" data-path="array-vector.html"><a href="array-vector.html#다른-타입의-원소-입력하기-1"><i class="fa fa-check"></i><b>4.2.2</b> 다른 타입의 원소 입력하기</a></li>
+<li class="chapter" data-level="4.2.3" data-path="array-vector.html"><a href="array-vector.html#원소-추가하기-1"><i class="fa fa-check"></i><b>4.2.3</b> 원소 추가하기</a></li>
+<li class="chapter" data-level="4.2.4" data-path="array-vector.html"><a href="array-vector.html#문자열-시퀀스-1"><i class="fa fa-check"></i><b>4.2.4</b> 문자열 시퀀스</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Python &amp; R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="array-vector" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 파이썬의 array, 그리고 R의 vector<a href="array-vector.html#array-vector" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>모든 원소가 동일한 형태인 시퀀스 자료 구조를 생각해 보자. 파이썬에서 tuple이나 list는 각 원소의 형태가 다름을 허용하지만, array(보다 정확하게는 <code>array.array</code>)는 모든 원소의 형태가 동일해야 한다. 이 때, 원소의 형태는 C에서 제공하는 기본 형태인 정수, 실수, 문자 등이다. 파이썬의 array는 mutable 객체로, modify-in-place를 지원한다.</p>
+<p>필자는 파이썬의 array와 가장 흡사한 R의 자료 구조는 vector(atomic vector)라고 생각한다. R의 vector에서도 모든 원소가 하나의 자료 형태여야 한다. 이 때, 원소의 대표적인 자료 형태는 R에서 기본적으로 제공하는 logical, 정수, 실수, 문자열 등이다. R의 vector는 R의 list와 마찬가지 이유로 mutable 객체라 할 수 있다.</p>
+<p>하지만, 파이썬의 array와 R의 vector 간에는 몇 가지 중요한 차이점도 존재한다. 예를 들어,</p>
+<ul>
+<li>현재 시퀀스의 원소 형태와 다른 원소값을 입력하려 하는 경우, 파이썬의 array는 오류를 반환하는 반면, R은 자동으로 type coercion을 수행한다.</li>
+<li>원소가 문자 형태인 경우, 파이썬의 array는 원소 당 하나의 문자만 지닐 수 있는 반면, R의 vector는 문자열을 원소로 지닐 수 있다.</li>
+</ul>
+<p>다음에서 예시를 통해 보다 자세히 살펴보기로 하자.</p>
+<div id="파이썬의-array" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 파이썬의 array<a href="array-vector.html#파이썬의-array" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>파이썬의 array는 파이썬의 standard library에 속한 <code>array</code> 모듈을 사용하여 생성한다.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb116-1"><a href="array-vector.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> array <span class="im">import</span> array</span>
+<span id="cb116-2"><a href="array-vector.html#cb116-2" aria-hidden="true" tabindex="-1"></a>py_array <span class="op">=</span> array(<span class="st">&#39;l&#39;</span>, <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">11</span>))</span>
+<span id="cb116-3"><a href="array-vector.html#cb116-3" aria-hidden="true" tabindex="-1"></a>py_array</span></code></pre></div>
+<pre><code>## array(&#39;l&#39;, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])</code></pre>
+<div id="mutability" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Mutability<a href="array-vector.html#mutability" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이 때, 원소의 값을 수정하더라도 array의 메모리 주소가 변하지 않음을 확인하자.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb118-1"><a href="array-vector.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_array)</span></code></pre></div>
+<pre><code>## 4524780784</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb120-1"><a href="array-vector.html#cb120-1" aria-hidden="true" tabindex="-1"></a>py_array[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb120-2"><a href="array-vector.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_array)</span></code></pre></div>
+<pre><code>## 4524780784</code></pre>
+</div>
+<div id="다른-타입의-원소-입력하기" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> 다른 타입의 원소 입력하기<a href="array-vector.html#다른-타입의-원소-입력하기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>앞에서 <code>py_array</code>는 정수(<code>'l'</code>) 형태의 원소를 지닌 array로 생성하였다. 여기에 정수가 아닌 원소를 입력하려 하면 어떻게 될까? 실험을 위해 첫 번째 원소에 실수(<code>'f'</code>) 형태의 값인 <code>1.0</code>을 입력하려 시도하면 오류가 발생할 것이다.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb122-1"><a href="array-vector.html#cb122-1" aria-hidden="true" tabindex="-1"></a>py_array[<span class="dv">0</span>] <span class="op">=</span> <span class="fl">1.0</span></span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: integer argument expected, got float</code></pre>
+</div>
+<div id="원소-추가하기" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> 원소 추가하기<a href="array-vector.html#원소-추가하기" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>파이썬의 list와 마찬가지로, 파이썬의 array 또한 필요보다 많은 메모리를 미리 할당하여, 원소가 추가될 때마다 매번 메모리 할당에 컴퓨팅을 소요하지 않도록 하였다.</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb124-1"><a href="array-vector.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.getsizeof(py_array))</span></code></pre></div>
+<pre><code>## 192</code></pre>
+<div class="sourceCode" id="cb126"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb126-1"><a href="array-vector.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">11</span>, <span class="dv">31</span>):</span>
+<span id="cb126-2"><a href="array-vector.html#cb126-2" aria-hidden="true" tabindex="-1"></a>  py_array.append(x)</span>
+<span id="cb126-3"><a href="array-vector.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f&#39;Number of elements: </span><span class="sc">{</span><span class="bu">len</span>(py_array)<span class="sc">}</span><span class="ss">, memory size: </span><span class="sc">{</span>sys<span class="sc">.</span>getsizeof(py_array)<span class="sc">}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## Number of elements: 11, memory size: 192
+## Number of elements: 12, memory size: 192
+## Number of elements: 13, memory size: 192
+## Number of elements: 14, memory size: 192
+## Number of elements: 15, memory size: 192
+## Number of elements: 16, memory size: 192
+## Number of elements: 17, memory size: 264
+## Number of elements: 18, memory size: 264
+## Number of elements: 19, memory size: 264
+## Number of elements: 20, memory size: 264
+## Number of elements: 21, memory size: 264
+## Number of elements: 22, memory size: 264
+## Number of elements: 23, memory size: 264
+## Number of elements: 24, memory size: 264
+## Number of elements: 25, memory size: 264
+## Number of elements: 26, memory size: 336
+## Number of elements: 27, memory size: 336
+## Number of elements: 28, memory size: 336
+## Number of elements: 29, memory size: 336
+## Number of elements: 30, memory size: 336</code></pre>
+<p>앞의 예에서, 원소들이 추가된 이후에도 <code>py_array</code>의 메모리 주소는 변하지 않는다.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb128-1"><a href="array-vector.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_array)</span></code></pre></div>
+<pre><code>## 4524780784</code></pre>
+</div>
+<div id="문자열-시퀀스" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> 문자열 시퀀스<a href="array-vector.html#문자열-시퀀스" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>파이썬에서 각 원소가 하나의 문자를 지닌 array는 다음과 같이 생성할 수 있다.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb130-1"><a href="array-vector.html#cb130-1" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;u&#39;</span>, [<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>, <span class="st">&#39;c&#39;</span>])</span></code></pre></div>
+<pre><code>## array(&#39;u&#39;, &#39;abc&#39;)</code></pre>
+<p>하지만, 각 원소가 문자열인 array는 생성할 수 없다.</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb132-1"><a href="array-vector.html#cb132-1" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;u&#39;</span>, [<span class="st">&#39;abc&#39;</span>, <span class="st">&#39;def&#39;</span>])</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: array item must be unicode character</code></pre>
+</div>
+</div>
+<div id="r의-vector" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> R의 vector<a href="array-vector.html#r의-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R에서 atomic vector는 흔히 <code>c()</code> 함수를 사용하여 생성하지만, 여기에서는 보다 명시적으로 데이터 타입을 보여주기 위해서 <code>as.vector()</code>를 사용하자.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="array-vector.html#cb134-1" aria-hidden="true" tabindex="-1"></a>r_vector <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">mode =</span> <span class="st">&quot;integer&quot;</span>)</span>
+<span id="cb134-2"><a href="array-vector.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(r_vector)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="array-vector.html#cb136-1" aria-hidden="true" tabindex="-1"></a>r_vector</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p><code>pryr::inspect()</code>를 통해 vector의 메모리 구조를 살펴보자.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="array-vector.html#cb138-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_vector)</span></code></pre></div>
+<pre><code>## &lt;INTSXP 0x7fbd20252c88&gt;</code></pre>
+<p>List와는 달리, vector에서는 각 원소가 다른 메모리 영역을 참조하는 것이 아니라 실제 원소값을 지니기 때문에, 각 원소값에 해당하는 메모리 주소가 따로 출력되지 않는 것을 볼 수 있다.</p>
+<div id="mutability-1" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Mutability<a href="array-vector.html#mutability-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이 vector가 저장된 메모리 주소를 <code>pryr::address()</code>로 출력해 보자. 또한, 동일한 vector 객체가 또 다른 이름으로 참조되고 있지 않은지를 보기 위해 <code>pryr::refs()</code>를 함께 호출해 보자. 이 값이 1인 경우(single binding)에는 modify-in-place 방식이 작동하여 원소값 변경 시 vector의 메모리 주소가 변경되지 않지만, 2 이상인 경우에는 copy-on-modify 방식이 작동하여 vector가 다른 곳에 복사된 뒤 값이 변경된다.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="array-vector.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_vector), pryr<span class="sc">::</span><span class="fu">refs</span>(r_vector))</span></code></pre></div>
+<pre><code>## [1] &quot;0x7fbd20252c88&quot; &quot;65535&quot;</code></pre>
+<p>이후, 첫 번째 원소의 값을 변경하려 시도해 보자. 이 때, 만약 앞에서 <code>pryr::refs(r_vector)</code>의 값이 1보다 큰 수였다면, 메모리 주소가 변경될 것이다.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="array-vector.html#cb142-1" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> 0L</span>
+<span id="cb142-2"><a href="array-vector.html#cb142-2" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="array-vector.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_vector), pryr<span class="sc">::</span><span class="fu">refs</span>(r_vector))</span></code></pre></div>
+<pre><code>## [1] &quot;0x7fbd2149d798&quot; &quot;1&quot;</code></pre>
+<p>앞의 결과에서 원소값 변경 이후 <code>pryr::refs(r_vector)</code>의 값이 1이었다면, 다시금 첫 번째 원소의 값(혹은 어떤 원소의 값이든)을 변경할 때 <code>r_vector</code>의 메모리 주소는 동일하게 유지될 것이다.</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="array-vector.html#cb146-1" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> 1L</span>
+<span id="cb146-2"><a href="array-vector.html#cb146-2" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="array-vector.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_vector), pryr<span class="sc">::</span><span class="fu">refs</span>(r_vector))</span></code></pre></div>
+<pre><code>## [1] &quot;0x7fbd2149d798&quot; &quot;1&quot;</code></pre>
+<p>이는 R의 vector 또한 modify-in-place를 지원하는 mutable object라는 것을 보여준다.</p>
+<p><strong>주의: RStudio IDE 상에서 원소값을 변경할 때는 list와 마찬가지로 추가적으로 발생하는 참조로 인해 <code>pryr::refs()</code> 값이 항상 1보다 클 수 있기 때문에, mutability는 인터랙티브 개발 환경으로부터 독립된 프로세스에서 더 잘 확인할 수 있을 것이다.</strong></p>
+</div>
+<div id="다른-타입의-원소-입력하기-1" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> 다른 타입의 원소 입력하기<a href="array-vector.html#다른-타입의-원소-입력하기-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>앞서 파이썬의 경우와는 달리, R의 vector는 현재 지정된 형태와 다른 원소가 입력되었을 때 자동으로 type coercion을 수행한다. 예를 들어, 첫 번째 원소의 값으로 정수 <code>1L</code>이 아닌 실수 <code>1.0</code>을 입력할 때, R에서 미리 지정된 type coercion logic에 따라 vector의 모든 원소가 실수(double)로 변경될 것이다.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="array-vector.html#cb150-1" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
+<span id="cb150-2"><a href="array-vector.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(r_vector)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>이 경우에는 vector 전체가 새로운 메모리 주소에 할당될 것이다.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="array-vector.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_vector), pryr<span class="sc">::</span><span class="fu">refs</span>(r_vector))</span></code></pre></div>
+<pre><code>## [1] &quot;0x7fbd17c6aaf8&quot; &quot;1&quot;</code></pre>
+<p>또한 <code>pryr::inspect()</code>를 호출하였을 때 C 객체 타입이 앞서 INTSXP에서 REALSXP로 변경되었음을 확인할 수 있다.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="array-vector.html#cb154-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_vector)</span></code></pre></div>
+<pre><code>## &lt;REALSXP 0x7fbd17c6aaf8&gt;</code></pre>
+</div>
+<div id="원소-추가하기-1" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> 원소 추가하기<a href="array-vector.html#원소-추가하기-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R의 list과 마찬가지로, R의 vector는 기존에 존재하지 않는 position에 원소를 추가하는 것처럼 보이게 코드를 작성할 수 있지만, 실제로는 새로운 메모리 주소에 vector를 생성하는 작업이 진행된다. 다음과 같이 원소를 하나씩 추가하며 메모리 주소와 할당된 메모리 크기가 어떻게 바뀌는지 살펴보자.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="array-vector.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">30</span>) {</span>
+<span id="cb156-2"><a href="array-vector.html#cb156-2" aria-hidden="true" tabindex="-1"></a>  r_vector[[x]] <span class="ot">&lt;-</span> x</span>
+<span id="cb156-3"><a href="array-vector.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(</span>
+<span id="cb156-4"><a href="array-vector.html#cb156-4" aria-hidden="true" tabindex="-1"></a>    glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb156-5"><a href="array-vector.html#cb156-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;Number of elements: {length(r_vector)}&quot;</span>,</span>
+<span id="cb156-6"><a href="array-vector.html#cb156-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;memory address: {pryr::address(r_vector)}&quot;</span>,</span>
+<span id="cb156-7"><a href="array-vector.html#cb156-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;memory size: {pryr::object_size(r_vector)}&quot;</span>,</span>
+<span id="cb156-8"><a href="array-vector.html#cb156-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.sep =</span> <span class="st">&quot;, &quot;</span></span>
+<span id="cb156-9"><a href="array-vector.html#cb156-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb156-10"><a href="array-vector.html#cb156-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb156-11"><a href="array-vector.html#cb156-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Number of elements: 11, memory address: 0x7fbd2102bcd8, memory size: 176
+## Number of elements: 12, memory address: 0x7fbd21287b48, memory size: 176
+## Number of elements: 13, memory address: 0x7fbd21287888, memory size: 176
+## Number of elements: 14, memory address: 0x7fbd212875c8, memory size: 176
+## Number of elements: 15, memory address: 0x7fbd21287308, memory size: 176
+## Number of elements: 16, memory address: 0x7fbd21287048, memory size: 176
+## Number of elements: 17, memory address: 0x600000f9e580, memory size: 184
+## Number of elements: 18, memory address: 0x600000f9e880, memory size: 192
+## Number of elements: 19, memory address: 0x6000001e49c0, memory size: 200
+## Number of elements: 20, memory address: 0x6000003e8000, memory size: 208
+## Number of elements: 21, memory address: 0x6000003e9a40, memory size: 216
+## Number of elements: 22, memory address: 0x6000005e81e0, memory size: 224
+## Number of elements: 23, memory address: 0x6000005e8000, memory size: 232
+## Number of elements: 24, memory address: 0x6000006fdb00, memory size: 240
+## Number of elements: 25, memory address: 0x6000006fde00, memory size: 248
+## Number of elements: 26, memory address: 0x7fbd057dbfe0, memory size: 256
+## Number of elements: 27, memory address: 0x7fbd057db8e0, memory size: 264
+## Number of elements: 28, memory address: 0x7fbd129ab010, memory size: 272
+## Number of elements: 29, memory address: 0x7fbd1294bd40, memory size: 280
+## Number of elements: 30, memory address: 0x7fbd1294ae00, memory size: 288</code></pre>
+<p>원소 개수가 하나씩 증가할 때마다 메모리 주소가 변경되며 메모리 크기가 8 byte(double 형태의 데이터의 크기)씩 증가함을 확인할 수 있을 것이다. 매번 메모리 재할당 및 복사 작업으로 인해, R vector의 원소를 추가할 때마다 필요한 작업량이 파이썬의 array를 사용할 때보다 더 많을 것이며, vector의 길이가 길수록 그 차이가 더 커지게 될 것이다.</p>
+</div>
+<div id="문자열-시퀀스-1" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> 문자열 시퀀스<a href="array-vector.html#문자열-시퀀스-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>R에서는 각 원소가 문자열인 vector를 각 원소가 하나의 문자인 vector를 생성할 때와 마찬가지 방식으로 생성할 수 있다.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="array-vector.html#cb158-1" aria-hidden="true" tabindex="-1"></a>r_char_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</span>
+<span id="cb158-2"><a href="array-vector.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(r_char_vec)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="array-vector.html#cb160-1" aria-hidden="true" tabindex="-1"></a>r_char_vec</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="array-vector.html#cb162-1" aria-hidden="true" tabindex="-1"></a>r_str_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>)</span>
+<span id="cb162-2"><a href="array-vector.html#cb162-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(r_str_vec)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="array-vector.html#cb164-1" aria-hidden="true" tabindex="-1"></a>r_str_vec</span></code></pre></div>
+<pre><code>## [1] &quot;abc&quot; &quot;def&quot;</code></pre>
+<p><code>typeof()</code> 결과에서 보이듯이, 두 가지 경우 모두 R에서는 “character” 형태의 원소를 지닌 vector로 인식한다. 다시 말해, R에서는 문자열의 길이와 상관이 없이 문자형의 데이터를 “character” 형태라고 한다.</p>
+<p>이 두 객체에 대해 <code>pryr::inspect()</code>를 호출하면, list에서와 같이 각 원소에 해당하는 메모리 주소가 출력되는 것을 볼 수 있다. 이는 각 원소에 실제 원소값을 저장한 다른 vector와는 달리, 문자열 vector는 list와 마찬가지로 각 원소에 실제 원소값에 대한 주소값을 지니며, 다만 list와는 달리 그 원소값의 형태가 문자열(C에서는 CHARSXP 객체)로 제한된다는 점을 의미한다고 하겠다.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="array-vector.html#cb166-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_char_vec)</span></code></pre></div>
+<pre><code>## &lt;STRSXP 0x7fbd215a64b8&gt;
+##   &lt;CHARSXP 0x7fbd259d0d48&gt;
+##   &lt;CHARSXP 0x7fbd369200e8&gt;
+##   &lt;CHARSXP 0x7fbd3680dac0&gt;</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="array-vector.html#cb168-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_str_vec)</span></code></pre></div>
+<pre><code>## &lt;STRSXP 0x7fbd176522c8&gt;
+##   &lt;CHARSXP 0x7fbd125a7a28&gt;
+##   &lt;CHARSXP 0x7fbd15a9caa8&gt;</code></pre>
+<p>문자열에 대해서는 추후 기회가 되면 별도로 다시 다루기로 하자.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tuple-list-list.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
