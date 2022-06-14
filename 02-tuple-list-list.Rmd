@@ -18,10 +18,10 @@ Tuple은 흔히 immutable list로 설명되기도 하는데, 일반적으로 그
 숫자 1부터 10까지를 각 원소로 지니는 길이 10짜리 tuple과 list를 생성해 보자.
 
 ```{python}
-py_tuple = tuple(x for x in range(1, 11))
+py_tuple = tuple(range(1, 11))
 py_tuple
 
-py_list = [x for x in range(1, 11)]
+py_list = list(range(1, 11))
 py_list
 ```
 
@@ -109,7 +109,7 @@ R에 내장된 대표적인 시퀀스(sequence)형 자료 형태로는 vector와
 
 ```{r}
 r_list <- as.list(1:10)
-r_list
+print(r_list)
 ```
 
 
@@ -142,7 +142,7 @@ c(pryr::address(r_list), pryr::refs(r_list))
 
 이는 R의 list가 파이썬의 list처럼 modify-in-place를 지원하는 mutable object라는 것을 보여준다.
 
-**주의: RStudio IDE 상에서 원소값을 변경할 때는 항상 copy-on-modify 방식이 작동하는데, 이는 RStudio IDE 내의 Environment 창에서 해당 list 객체를 추가로 참조하여 `pryr::refs()` 값이 항상 1보다 크기 때문이다. 따라서, mutable update는 인터랙티브 개발 환경으로부터 독립된 프로세스에서 작동할 것이다.**
+**주의: RStudio IDE의 인터랙티브 환경에서 수행할 때는 아마도 copy-on-modify 방식이 작동할 수 있는데, 이는 RStudio IDE 내에서 해당 list 객체를 추가로 참조하여 `pryr::refs()` 값이 항상 1보다 크기 때문일 것이다. 따라서, modify-in-place는 인터랙티브 환경이 아닐 때 더 잘 확인할 수 있을 것이다.**
 
 
 ### Append items

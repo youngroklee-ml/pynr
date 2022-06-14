@@ -48,7 +48,7 @@ py_dict = gen_dict(10000)
 결과를 출력할 때, 원소가 입력된 순서가 보존되어 출력된다.
 
 ```{python}
-[x for x in py_dict.__iter__()][:10]
+list(py_dict.__iter__())[:10]
 ```
 
 

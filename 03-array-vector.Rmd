@@ -84,7 +84,7 @@ R에서 atomic vector는 흔히 `c()` 함수를 사용하여 생성하지만, �
 ```{r}
 r_vector <- as.vector(1:10, mode = "integer")
 typeof(r_vector)
-r_vector
+print(r_vector)
 ```
 
 `pryr::inspect()`를 통해 vector의 메모리 구조를 살펴보자.
