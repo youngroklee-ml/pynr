@@ -183,7 +183,7 @@ Environment는 reference semantics을 지녀 modify-in-place 방식으로 작동
 pryr::address(r_env)
 
 new_env <- r_env
-new_env[['item100']] = 0
+new_env[['item100']] <- 0
 pryr::address(new_env)
 
 r_env[['item100']]
@@ -196,7 +196,7 @@ r_env[['item100']]
 pryr::address(r_list)
 
 new_list <- r_list
-new_list[['item100']] = 0
+new_list[['item100']] <- 0
 pryr::address(new_list)
 
 r_list[['item100']]
