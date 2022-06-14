@@ -1,7 +1,7 @@
 --- 
 title: "Python & R"
 author: "이영록"
-date: "2022-06-12"
+date: "2022-06-14"
 site: bookdown::bookdown_site
 documentclass: book
 # bibliography: [book.bib, packages.bib]
@@ -46,3 +46,4 @@ R.version$version.string
 ```
 ## [1] "R version 4.1.3 (2022-03-10)"
 ```
+
