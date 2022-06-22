@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Python &amp; R</title>
+  <title>Chapter 5 Scalar | Python &amp; R</title>
   <meta name="description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
 어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
 R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Python &amp; R" />
+  <meta property="og:title" content="Chapter 5 Scalar | Python &amp; R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
@@ -19,7 +19,7 @@ R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 
   <meta name="github-repo" content="youngroklee-ml/pynr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Python &amp; R" />
+  <meta name="twitter:title" content="Chapter 5 Scalar | Python &amp; R" />
   
   <meta name="twitter:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
 어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
@@ -36,7 +36,7 @@ R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="array-vector.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -217,18 +217,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="scalar" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Scalar<a href="scalar.html#scalar" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>여러 개의 값의 시퀀스가 아니라, 오직 하나의 값만을 지니는 객체를 생각해 보자. 이러한 객체를 생성하는 데는 두 가지 방법을 생각해 볼 수 있다. 별도의 자료구조를 사용하는 방법과, 단순히 길이 1인 시퀀스를 생성하는 방법이다. 전자의 경우 시퀀스의 특성을 제거한 자료구조를 상상해 볼 수 있을 것이며, 후자의 경우 시퀀스 특성이 객체에 여전히 존재할 것이라 상상해 볼 수 있을 것이다.</p>
+<p>파이썬에서는 전자의 경우에 해당하는 자료구조가 존재하는 반면, R에서는 후자의 방법을 따른다. 보다 자세한 내용은 예제와 함께 보도록 하자.</p>
+<div id="파이썬" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> 파이썬<a href="scalar.html#파이썬" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>파이썬에서는 논리형, 정수형, 실수형 값 각각은 별도의 class 객체이며, 시퀀스가 아니다. 즉, 길이 1의 array가 아니라, 별개의 scalar 객체이다.</p>
+<p>우선 논리형을 살펴보자.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb170-1"><a href="scalar.html#cb170-1" aria-hidden="true" tabindex="-1"></a>py_bool <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb170-2"><a href="scalar.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_bool)</span></code></pre></div>
+<pre><code>## &lt;class &#39;bool&#39;&gt;</code></pre>
+<p>여기에서 <code>py_bool</code>이 시퀀스 객체가 아님을 간단하게 확인하기 위해 함수 <code>len()</code>을 호출해 보자.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb172-1"><a href="scalar.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(py_bool)</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;bool&#39; has no len()</code></pre>
+<p>이 호출은 오류를 반환할텐데, 왜냐하면 bool class에는 시퀀스 클래스들과는 달리 special method <code>__len__()</code>가 정의되어 있지 않기 때문이다.</p>
+<p>다음으로 정수형을 살펴보자.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb174-1"><a href="scalar.html#cb174-1" aria-hidden="true" tabindex="-1"></a>py_int <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb174-2"><a href="scalar.html#cb174-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_int)</span></code></pre></div>
+<pre><code>## &lt;class &#39;int&#39;&gt;</code></pre>
+<p>정수형 int class 역시 <code>__len__()</code> method를 지니지 않는다.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb176-1"><a href="scalar.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(py_int)</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: object of type &#39;int&#39; has no len()</code></pre>
+<p>또한, 다음과 같은 indexing도 적용되지 않는다. 물론, scalar에 이러한 indexing은 효용성이 없지만, 오류가 반환된다는 점이 중요하다.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb178-1"><a href="scalar.html#cb178-1" aria-hidden="true" tabindex="-1"></a>py_int[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: &#39;int&#39; object is not subscriptable</code></pre>
+<p>이와 달리, 길이가 1인 정수형 array를 생성해 보면, 이는 array class 객체이며 <code>len()</code>를 호출할 때 길이 1을 반환한다. 또한, indexing이 지원된다.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb180-1"><a href="scalar.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> array <span class="im">import</span> array</span>
+<span id="cb180-2"><a href="scalar.html#cb180-2" aria-hidden="true" tabindex="-1"></a>py_int_array <span class="op">=</span> array(<span class="st">&#39;l&#39;</span>, [<span class="dv">7</span>])</span>
+<span id="cb180-3"><a href="scalar.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_int_array)</span></code></pre></div>
+<pre><code>## &lt;class &#39;array.array&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb182-1"><a href="scalar.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(py_int_array)</span></code></pre></div>
+<pre><code>## 1</code></pre>
+<div class="sourceCode" id="cb184"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb184-1"><a href="scalar.html#cb184-1" aria-hidden="true" tabindex="-1"></a>py_int_array[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>## 7</code></pre>
+<p>따라서, Python을 사용할 때 각 논리형, 정수형, 실수형 값은 길이 1인 array가 아니라 array의 특성을 지니지 않은 개별 값임을 기억하자.</p>
+</div>
+<div id="r-1" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> R<a href="scalar.html#r-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R에서 논리형, 정수형, 실수형 값 각각은 길이 1인 vector로 표현된다. 따라서, <code>is.vector()</code>에 인자로 넘기면 TRUE를 반환할 것이며, <code>length()</code> 함수를 호출하면 길이 1을 반환할 것이다.</p>
+<p>우선 논리형에 대해 확인해 보자.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="scalar.html#cb186-1" aria-hidden="true" tabindex="-1"></a>r_bool <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb186-2"><a href="scalar.html#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(r_bool)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="scalar.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(r_bool)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>다음으로 정수형에 대해 확인해 보자.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="scalar.html#cb190-1" aria-hidden="true" tabindex="-1"></a>r_int <span class="ot">&lt;-</span> 7L</span>
+<span id="cb190-2"><a href="scalar.html#cb190-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.vector</span>(r_int)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="scalar.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(r_int)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>따라서, R의 “scalar”는 파이썬의 scalar형 객체가 아닌 파이썬의 array(길이 1인)와 유사하다고 생각할 수 있다. 이는 앞 장에서 파이썬의 array와 R의 vector의 유사성을 살펴보았던 것과 일관된다.</p>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="array-vector.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

@@ -1,7 +1,7 @@
 --- 
 title: "Python & R"
 author: "이영록"
-date: "2022-06-14"
+date: "2022-06-21"
 site: bookdown::bookdown_site
 documentclass: book
 # bibliography: [book.bib, packages.bib]

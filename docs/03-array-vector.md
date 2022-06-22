@@ -38,7 +38,7 @@ id(py_array)
 ```
 
 ```
-## 4516916592
+## 4546977264
 ```
 
 ```python
@@ -47,7 +47,7 @@ id(py_array)
 ```
 
 ```
-## 4516916592
+## 4546977264
 ```
 
 
@@ -115,7 +115,7 @@ id(py_array)
 ```
 
 ```
-## 4516916592
+## 4546977264
 ```
 
 
@@ -175,7 +175,7 @@ pryr::inspect(r_vector)
 ```
 
 ```
-## <INTSXP 0x7fe7c2c4d008>
+## <INTSXP 0x7fe8739fac88>
 ```
 
 List와는 달리, vector에서는 각 원소가 다른 메모리 영역을 참조하는 것이 아니라 실제 원소값을 지니기 때문에, 각 원소값에 해당하는 메모리 주소가 따로 출력되지 않는 것을 볼 수 있다.
@@ -192,7 +192,7 @@ c(pryr::address(r_vector), pryr::refs(r_vector))
 ```
 
 ```
-## [1] "0x7fe7c2c4d008" "65535"
+## [1] "0x7fe8739fac88" "65535"
 ```
 
 
@@ -213,7 +213,7 @@ c(pryr::address(r_vector), pryr::refs(r_vector))
 ```
 
 ```
-## [1] "0x7fe7c40c7198" "1"
+## [1] "0x7fe872f00448" "1"
 ```
 
 앞의 결과에서 원소값 변경 이후 `pryr::refs(r_vector)`의 값이 1이었다면, 다시금 첫 번째 원소의 값(혹은 어떤 원소의 값이든)을 변경할 때 `r_vector`의 메모리 주소는 동일하게 유지될 것이다.
@@ -233,7 +233,7 @@ c(pryr::address(r_vector), pryr::refs(r_vector))
 ```
 
 ```
-## [1] "0x7fe7c40c7198" "1"
+## [1] "0x7fe872f00448" "1"
 ```
 
 이는 R의 vector 또한 modify-in-place를 지원하는 mutable object라는 것을 보여준다.
@@ -263,7 +263,7 @@ c(pryr::address(r_vector), pryr::refs(r_vector))
 ```
 
 ```
-## [1] "0x7fe7c2662af8" "1"
+## [1] "0x7fe8734aaaf8" "1"
 ```
 
 또한 `pryr::inspect()`를 호출하였을 때 C 객체 타입이 앞서 INTSXP에서 REALSXP로 변경되었음을 확인할 수 있다.
@@ -274,7 +274,7 @@ pryr::inspect(r_vector)
 ```
 
 ```
-## <REALSXP 0x7fe7c2662af8>
+## <REALSXP 0x7fe8734aaaf8>
 ```
 
 
@@ -299,26 +299,26 @@ for (x in 11:30) {
 ```
 
 ```
-## Number of elements: 11, memory address: 0x7fe7c3c6f6d8, memory size: 176
-## Number of elements: 12, memory address: 0x7fe7b46bb348, memory size: 176
-## Number of elements: 13, memory address: 0x7fe7b46bb088, memory size: 176
-## Number of elements: 14, memory address: 0x7fe7b46badc8, memory size: 176
-## Number of elements: 15, memory address: 0x7fe7b46bab08, memory size: 176
-## Number of elements: 16, memory address: 0x7fe7b46ba848, memory size: 176
-## Number of elements: 17, memory address: 0x6000028f9680, memory size: 184
-## Number of elements: 18, memory address: 0x6000028f4600, memory size: 192
-## Number of elements: 19, memory address: 0x6000026f0750, memory size: 200
-## Number of elements: 20, memory address: 0x6000024b1ce0, memory size: 208
-## Number of elements: 21, memory address: 0x600002490000, memory size: 216
-## Number of elements: 22, memory address: 0x600002296850, memory size: 224
-## Number of elements: 23, memory address: 0x600002296a30, memory size: 232
-## Number of elements: 24, memory address: 0x6000021b7f00, memory size: 240
-## Number of elements: 25, memory address: 0x6000021bcb00, memory size: 248
-## Number of elements: 26, memory address: 0x7fe7e0f99e60, memory size: 256
-## Number of elements: 27, memory address: 0x7fe7e0f8bb70, memory size: 264
-## Number of elements: 28, memory address: 0x7fe7e0fc9d20, memory size: 272
-## Number of elements: 29, memory address: 0x7fe7e0fc9f50, memory size: 280
-## Number of elements: 30, memory address: 0x7fe7e0fca190, memory size: 288
+## Number of elements: 11, memory address: 0x7fe871f52928, memory size: 176
+## Number of elements: 12, memory address: 0x7fe872d8afa8, memory size: 176
+## Number of elements: 13, memory address: 0x7fe872d8ace8, memory size: 176
+## Number of elements: 14, memory address: 0x7fe872d8aa28, memory size: 176
+## Number of elements: 15, memory address: 0x7fe872d8a768, memory size: 176
+## Number of elements: 16, memory address: 0x7fe873ef5798, memory size: 176
+## Number of elements: 17, memory address: 0x600003992700, memory size: 184
+## Number of elements: 18, memory address: 0x600003992d00, memory size: 192
+## Number of elements: 19, memory address: 0x6000037f4680, memory size: 200
+## Number of elements: 20, memory address: 0x6000035fe060, memory size: 208
+## Number of elements: 21, memory address: 0x6000035fdea0, memory size: 216
+## Number of elements: 22, memory address: 0x6000033e60d0, memory size: 224
+## Number of elements: 23, memory address: 0x6000033e62b0, memory size: 232
+## Number of elements: 24, memory address: 0x6000030f6100, memory size: 240
+## Number of elements: 25, memory address: 0x6000030f6400, memory size: 248
+## Number of elements: 26, memory address: 0x7fe863b13390, memory size: 256
+## Number of elements: 27, memory address: 0x7fe863b12990, memory size: 264
+## Number of elements: 28, memory address: 0x7fe863b12bb0, memory size: 272
+## Number of elements: 29, memory address: 0x7fe863b11bb0, memory size: 280
+## Number of elements: 30, memory address: 0x7fe863b11df0, memory size: 288
 ```
 
 원소 개수가 하나씩 증가할 때마다 메모리 주소가 변경되며 메모리 크기가 8 byte(double 형태의 데이터의 크기)씩 증가함을 확인할 수 있을 것이다. 매번 메모리 재할당 및 복사 작업으로 인해, R vector의 원소를 추가할 때마다 필요한 작업량이 파이썬의 array를 사용할 때보다 더 많을 것이며, vector의 길이가 길수록 그 차이가 더 커지게 될 것이다.
@@ -374,10 +374,10 @@ pryr::inspect(r_char_vec)
 ```
 
 ```
-## <STRSXP 0x7fe7b57f35d8>
-##   <CHARSXP 0x7fe7e1971b48>
-##   <CHARSXP 0x7fe7e11f38e8>
-##   <CHARSXP 0x7fe7e100e0c0>
+## <STRSXP 0x7fe873e6f748>
+##   <CHARSXP 0x7fe8912ceb48>
+##   <CHARSXP 0x7fe892badae8>
+##   <CHARSXP 0x7fe89100dac0>
 ```
 
 ```r
@@ -385,9 +385,9 @@ pryr::inspect(r_str_vec)
 ```
 
 ```
-## <STRSXP 0x7fe7c3a9e1c8>
-##   <CHARSXP 0x7fe7b27a1940>
-##   <CHARSXP 0x7fe7e14a9ea8>
+## <STRSXP 0x7fe866b3ea48>
+##   <CHARSXP 0x7fe872a6ac28>
+##   <CHARSXP 0x7fe891a37aa8>
 ```
 
 문자열에 대해서는 추후 기회가 되면 별도로 다시 다루기로 하자.

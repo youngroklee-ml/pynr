@@ -104,7 +104,7 @@ id(py_dict)
 ```
 
 ```
-## 4518894912
+## 4552821568
 ```
 
 ```python
@@ -114,7 +114,7 @@ id(new_dict)
 ```
 
 ```
-## 4518894912
+## 4552821568
 ```
 
 ```python
@@ -151,7 +151,7 @@ system.time(r_list <- gen_list(10000))
 
 ```
 ##    user  system elapsed 
-##   0.730   0.026   0.757
+##   0.776   0.027   0.803
 ```
 
 
@@ -170,7 +170,7 @@ system.time(r_env <- gen_env(10000))
 
 ```
 ##    user  system elapsed 
-##    0.03    0.00    0.03
+##   0.029   0.000   0.030
 ```
 
 이 결과에서, list에 원소를 하나씩 새로 추가하는 것(즉, 길이가 하나씩 증가하는 것)에 비해, environment에 원소를 하나씩 새로 추가하는 시간이 훨씬 짧게 소요되는 것을 확인할 수 있다. 그 차이는 원소의 갯수가 많을수록 더 커진다.
@@ -236,8 +236,8 @@ bench::mark(
 ## # A tibble: 2 × 6
 ##   expression            min median `itr/sec` mem_alloc `gc/sec`
 ##   <bch:expr>          <dbl>  <dbl>     <dbl> <bch:byt>    <dbl>
-## 1 r_list[["item100"]] 917.   1000.   954943.        0B        0
-## 2 r_env[["item100"]]   83.0   125.  6963701.        0B        0
+## 1 r_list[["item100"]] 792.    875.  1109518.        0B        0
+## 2 r_env[["item100"]]   84.0   167.  6469632.        0B        0
 ```
 
 수행 시간의 `median`값을 볼 때, 이 예에서 environment가 list보다 몇 배 더 빠르다는 것을 확인할 수 있다.
@@ -301,7 +301,7 @@ pryr::address(r_env)
 ```
 
 ```
-## [1] "0x7ff69cb06958"
+## [1] "0x7f9ac1efd878"
 ```
 
 ```r
@@ -311,7 +311,7 @@ pryr::address(new_env)
 ```
 
 ```
-## [1] "0x7ff69cb06958"
+## [1] "0x7f9ac1efd878"
 ```
 
 ```r
@@ -331,7 +331,7 @@ pryr::address(r_list)
 ```
 
 ```
-## [1] "0x7ff6b3920000"
+## [1] "0x7f9abaa18000"
 ```
 
 ```r
@@ -341,7 +341,7 @@ pryr::address(new_list)
 ```
 
 ```
-## [1] "0x7ff690648000"
+## [1] "0x7f9ababb0000"
 ```
 
 ```r
