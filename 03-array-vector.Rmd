@@ -202,3 +202,7 @@ pryr::inspect(r_str_vec)
 
 
 
+## 파이썬 NumPy
+
+파이썬의 array와 가장 유사한 R의 자료 구조는 vector라 하겠지만, R의 vector와 가장 유사한 파이썬의 자료 구조는 array.array보다는 numpy.array라 하는 것이 더 적합할 것 같다. NumPy는 파이썬의 기본 라이브러리가 아니라 추가로 설치해야 하는 라이브러리이지만, 대부분의 코딩에서는 연산을 위해 numpy.array를 더 많이 사용할 것이다. 이에 대해서는 추후 기회가 되면 다시 살펴보기로 하자.
+

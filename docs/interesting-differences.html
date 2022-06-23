@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Python &amp; R</title>
+  <title>Chapter 6 값을 다룰 때 흥미로운 차이점 | Python &amp; R</title>
   <meta name="description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
 어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
 R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Python &amp; R" />
+  <meta property="og:title" content="Chapter 6 값을 다룰 때 흥미로운 차이점 | Python &amp; R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
@@ -19,7 +19,7 @@ R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 
   <meta name="github-repo" content="youngroklee-ml/pynr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Python &amp; R" />
+  <meta name="twitter:title" content="Chapter 6 값을 다룰 때 흥미로운 차이점 | Python &amp; R" />
   
   <meta name="twitter:description" content="<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다.
 어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가
@@ -36,8 +36,8 @@ R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="scalar.html"/>
 
-<link rel="next" href="dictionary-named-list-environment.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -223,27 +223,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Python &amp; R</h1>
-<p class="author"><em>이영록</em></p>
-<p class="date"><em>2022-06-22</em></p>
+<div id="interesting-differences" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> 값을 다룰 때 흥미로운 차이점<a href="interesting-differences.html#interesting-differences" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="큰-정수" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> 큰 정수<a href="interesting-differences.html#큰-정수" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>매우 큰 정수를 정확한 값으로 사용해야 하는 경우, 파이썬에서는 기본 정수형을 그대로 사용할 수 있겠으나, R에서는 일정 크기 이상의 정수가 정확히 저장되지 않는 문제가 있다. 따라서, 매우 큰 정수값을 사용해야 하는 경우 R에서는 주의하도록 하자.</p>
+<p>20자리 정수를 객체에 지정한 뒤, 그 값을 프린트하는 다음 파이썬 코드를 보자. 값이 정확하게 출력된다. 파이썬(보다 정확하게 파이썬3)의 경우, 정수값의 범위에 제한이 없다.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb194-1"><a href="interesting-differences.html#cb194-1" aria-hidden="true" tabindex="-1"></a>py_int <span class="op">=</span> <span class="dv">12345678901234567890</span></span>
+<span id="cb194-2"><a href="interesting-differences.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_int)</span></code></pre></div>
+<pre><code>## &lt;class &#39;int&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb196-1"><a href="interesting-differences.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(py_int)</span></code></pre></div>
+<pre><code>## 12345678901234567890</code></pre>
+<p>같은 숫자(마지막에 정수형임을 나타내는 <code>L</code>을 추가)를 R 객체에 입력하려 할 때, 그 값이 정확하게 저장되지 않음을 확인할 수 있다. 우선, 해당값을 R이 정수형으로 인식할 수 없다는 경고 메시지를 보게 될 것이다. 따라서 R은 해당값을 실수형(double)로 받아들이고, 실수형에 적용되는 표현식을 통해 주어진 값에 가깝지만 정확히 같지는 않은 값으로 나타난다. <code>typeof()</code>의 결과가 <code>"integer"</code>가 아닌 <code>"double"</code>임에 주목하자.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="interesting-differences.html#cb198-1" aria-hidden="true" tabindex="-1"></a>r_int <span class="ot">&lt;-</span> 12345678901234567890L</span>
+<span id="cb198-2"><a href="interesting-differences.html#cb198-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(r_int)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="interesting-differences.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(r_int, <span class="at">digits =</span> <span class="dv">20</span>, <span class="at">scientific =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;12345678901234567168&quot;</code></pre>
+<p>이는 파이썬에서 값을 정수가 아닌 실수형(float)으로 입력하였을 때(마지막에 실수형임을 나타내는 <code>.</code> 추가) 나타나는 결과와 동일하다.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb202-1"><a href="interesting-differences.html#cb202-1" aria-hidden="true" tabindex="-1"></a>py_float <span class="op">=</span> <span class="fl">12345678901234567890.</span></span>
+<span id="cb202-2"><a href="interesting-differences.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_float)</span></code></pre></div>
+<pre><code>## &lt;class &#39;float&#39;&gt;</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb204-1"><a href="interesting-differences.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&#39;</span><span class="sc">{</span>py_float<span class="sc">:20.0f}</span><span class="ss">&#39;</span>)</span></code></pre></div>
+<pre><code>## 12345678901234567168</code></pre>
 </div>
-<div id="overview" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>이 책은 Python과 R의 비슷한 점과 차이점을 예제를 통해 알아보기 위한 책이다. 어느 하나가 다른 하나의 우위에 있음을 보이려는 의도가 아니며, Python 사용자가 R을 이해하거나 R 사용자가 Python을 이해하는 데 도움을 주기 위해 작성되었다.</p>
-<p>특정 용도(통계 분석, 시각화, 머신 러닝 등)보다는 일반적인 프로그래밍 언어 관점에서 살펴보고자 한다. 따라서 가능한 한 기본 Python 및 R의 내에서 비교하며, R의 경우에는 필요에 따라 R을 좀 더 프로그래밍 언어적으로 사용하기 위한 패키지(rlang 등)를 필요에 따라 추가로 사용할 예정이다.</p>
-<p>책 작성 시 사용된 Python과 R의 버전은 다음과 같다.</p>
-<div id="python" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Python<a href="index.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb1-2"><a href="index.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.version)</span></code></pre></div>
-<pre><code>## 3.8.9 (default, Apr 13 2022, 08:48:07) 
-## [Clang 13.1.6 (clang-1316.0.21.2.5)]</code></pre>
-</div>
-<div id="r" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> R<a href="index.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a>R.version<span class="sc">$</span>version.string</span></code></pre></div>
-<pre><code>## [1] &quot;R version 4.1.3 (2022-03-10)&quot;</code></pre>
+<div id="결측값" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 결측값<a href="interesting-differences.html#결측값" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>결측값에 대해서는 R을 먼저 살펴보자.</p>
+<p>R에서는 <code>NA</code>가 결측값을 나타낸다. 일반적으로는 데이터의 형태와 상관없이 <code>NA</code>를 사용하지만, 이는 사실 논리형에 대한 결측값이며, 다른 형태, 즉 정수형(<code>NA_integer_</code>), 실수형(<code>NA_real_</code>), 문자형(<code>NA_character_</code>)의 결측값도 각각 존재한다.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="interesting-differences.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="interesting-differences.html#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">NA_integer_</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="interesting-differences.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">NA_real_</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="interesting-differences.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="cn">NA_character_</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>데이터 형태와 상관없이 <code>NA</code>를 써도, vector에 있는 다른 관측값들의 형태와 일관된 결측값으로 자동으로 적용된다.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="interesting-differences.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="cn">NA</span>)</span></code></pre></div>
+<pre><code>##  logi NA</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="interesting-differences.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="cn">NA_integer_</span>)</span></code></pre></div>
+<pre><code>##  int NA</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="interesting-differences.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">c</span>(5L, <span class="cn">NA</span>)[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>##  int NA</code></pre>
+<p>파이썬에서는 기본적으로 <code>None</code>이 결측값을 표현하는데 사용된다.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb220-1"><a href="interesting-differences.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="va">None</span></span>
+<span id="cb220-2"><a href="interesting-differences.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">None</span>)</span></code></pre></div>
+<pre><code>## &lt;class &#39;NoneType&#39;&gt;</code></pre>
+<p>이 결측값은 정수형, 실수형, 문자형 array.array에 원소로 추가할 수가 없는데, 이는 array.array가 type coercion을 지원하지 않기 때문일 것이다.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb222-1"><a href="interesting-differences.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> array <span class="im">import</span> array</span>
+<span id="cb222-2"><a href="interesting-differences.html#cb222-2" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;l&#39;</span>, [<span class="dv">5</span>, <span class="va">None</span>])</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: an integer is required (got type NoneType)</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb224-1"><a href="interesting-differences.html#cb224-1" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;f&#39;</span>, [<span class="fl">5.</span>, <span class="va">None</span>])</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: must be real number, not NoneType</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb226-1"><a href="interesting-differences.html#cb226-1" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;u&#39;</span>, [<span class="st">&#39;5&#39;</span>, <span class="va">None</span>])</span></code></pre></div>
+<pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: array item must be unicode character</code></pre>
+<p>결측값을 NumPy array에 입력해 보자. NumPy는 <code>np.nan</code>이라는 실수형 결측값을 지원하며, 이를 사용하는 것이 흔한 경우다. 이때 array의 다른 관측값의 형태에 따라 다소 예상치 않은 결과를 얻을 수 있으니 조심하도록 하자.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb228-1"><a href="interesting-differences.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb228-2"><a href="interesting-differences.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np.nan)</span></code></pre></div>
+<pre><code>## &lt;class &#39;float&#39;&gt;</code></pre>
+<p>실수형 array에 이 결측값을 추가하는 경우에는 여전히 실수형 array로 나타날 것이다.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb230-1"><a href="interesting-differences.html#cb230-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="fl">5.</span>, np.nan])</span></code></pre></div>
+<pre><code>## array([ 5., nan])</code></pre>
+<p>정수형 array에 결측값을 추가했을 때는 이 array 자체가 실수형으로 변하는데, 이는 데이터 형태에서 실수형인 결측값이 정수형인 관측값들보다 데이터 형태 결정 시 우선순위에 있기 때문으로 보인다.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb232-1"><a href="interesting-differences.html#cb232-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">5</span>, np.nan])</span></code></pre></div>
+<pre><code>## array([ 5., nan])</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb234-1"><a href="interesting-differences.html#cb234-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">5</span>, np.nan])[<span class="dv">0</span>]</span></code></pre></div>
+<pre><code>## 5.0</code></pre>
+<p>문자형 array에 결측값을 추가했을 때는 결측값이 문자열 <code>'nan'</code>으로 변한다. Type coercion상 문자형이 실수형보다 우위에 있기 때문으로 보인다.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb236-1"><a href="interesting-differences.html#cb236-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="st">&#39;5&#39;</span>, np.nan])</span></code></pre></div>
+<pre><code>## array([&#39;5&#39;, &#39;nan&#39;], dtype=&#39;&lt;U32&#39;)</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb238-1"><a href="interesting-differences.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np.array([<span class="st">&#39;5&#39;</span>, np.nan])[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## &lt;class &#39;numpy.str_&#39;&gt;</code></pre>
 
 </div>
 </div>
@@ -252,8 +303,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="scalar.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="dictionary-named-list-environment.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

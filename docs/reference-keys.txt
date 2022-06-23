@@ -30,6 +30,10 @@ mutability-1
 다른-타입의-원소-입력하기-1
 원소-추가하기-1
 문자열-시퀀스-1
+파이썬-numpy
 scalar
 파이썬
 r-1
+interesting-differences
+큰-정수
+결측값

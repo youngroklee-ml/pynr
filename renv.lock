@@ -22,6 +22,14 @@
       "Hash": "470851b6d5d0ac559e9d01bb352b4021",
       "Requirements": []
     },
+    "Rcpp": {
+      "Package": "Rcpp",
+      "Version": "1.0.8.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "32e79b908fda56ee57fe518a8d37b864",
+      "Requirements": []
+    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -83,6 +91,14 @@
       "Requirements": [
         "glue"
       ]
+    },
+    "codetools": {
+      "Package": "codetools",
+      "Version": "0.2-18",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "019388fc48e48b3da0d3a76ff94608a8",
+      "Requirements": []
     },
     "crayon": {
       "Package": "crayon",
@@ -217,6 +233,18 @@
         "rlang"
       ]
     },
+    "lobstr": {
+      "Package": "lobstr",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3354c874f6008f7f1e418526df8ecd8a",
+      "Requirements": [
+        "Rcpp",
+        "crayon",
+        "rlang"
+      ]
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.1",
@@ -277,6 +305,19 @@
       "Repository": "CRAN",
       "Hash": "4974ce1d5ab22f266af90826f295f6c7",
       "Requirements": []
+    },
+    "pryr": {
+      "Package": "pryr",
+      "Version": "0.1.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3fb39bed6e21e21cdb79a3203c6a198e",
+      "Requirements": [
+        "Rcpp",
+        "codetools",
+        "lobstr",
+        "stringr"
+      ]
     },
     "rappdirs": {
       "Package": "rappdirs",
