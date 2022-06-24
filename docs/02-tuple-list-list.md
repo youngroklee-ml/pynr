@@ -63,7 +63,7 @@ id(py_list)
 ```
 
 ```
-## 4700643200
+## 4701609344
 ```
 
 ```python
@@ -80,7 +80,7 @@ id(py_list)
 ```
 
 ```
-## 4700643200
+## 4701609344
 ```
 
 위 결과와 같이, 원소의 값을 변경하더라도 list 객체의 메모리 위치는 변함이 없는 modify-in-place 방식을 지원한다.
@@ -126,7 +126,7 @@ id(py_tuple)
 ```
 
 ```
-## 4694012352
+## 4694979008
 ```
 
 ```python
@@ -143,7 +143,7 @@ id(py_tuple)
 ```
 
 ```
-## 4698551232
+## 4699517888
 ```
 
 반면, list의 경우 `append()`를 사용하여 기존의 list에 원소를 추가할 수 있다.
@@ -154,7 +154,7 @@ id(py_list)
 ```
 
 ```
-## 4700643200
+## 4701609344
 ```
 
 ```python
@@ -171,7 +171,7 @@ id(py_list)
 ```
 
 ```
-## 4700643200
+## 4701609344
 ```
 
 이 예에서 `py_list`의 메모리 주소는 변하지 않았다. 이는 마치 list가 mutable 객체이기 때문인 것으로 보이지만, 필자는 이는 절반만 맞는 설명이라 하겠다. 실제로는, 파이썬은 list를 생성할 때, 이후에 추가될 수 있는 원소를 위한 공간을 미리 어느 정도 남겨둔다. 따라서, 그 남겨둔 공간까지는 원소를 추가하더라도 list에 할당된 메모리 공간이 변하지 않지만, 그 범위를 넘어서는 순간 list에 메모리 공간이 재할당된다. 이 재할당 작업을 너무 자주 수행하지 않기 위해 미리 당장 필요하지 않은 메모리를 확보해 두는 것이다. 다음 예는 list의 메모리 공간이 매 원소 추가 시마다 증가하는 것이 아니라 이따금 한 번에 증가한다는 것을 보여준다. 
@@ -223,7 +223,7 @@ id(py_list)
 ```
 
 ```
-## 4700643200
+## 4701609344
 ```
 
 
@@ -282,7 +282,7 @@ c(pryr::address(r_list), pryr::refs(r_list))
 ```
 
 ```
-## [1] "0x7fdd7322e418" "3"
+## [1] "0x7fd23f518818" "3"
 ```
 
 
@@ -303,7 +303,7 @@ c(pryr::address(r_list), pryr::refs(r_list))
 ```
 
 ```
-## [1] "0x7fdd7313c698" "1"
+## [1] "0x7fd23ee66698" "1"
 ```
 
 앞의 결과에서 원소값 변경 이후 `pryr::refs(r_list)`의 값이 1이었다면, 다시금 첫 번째 원소의 값(혹은 어떤 원소의 값이든)을 변경할 때 `r_list`의 메모리 주소는 동일하게 유지될 것이다.
@@ -323,7 +323,7 @@ c(pryr::address(r_list), pryr::refs(r_list))
 ```
 
 ```
-## [1] "0x7fdd7313c698" "1"
+## [1] "0x7fd23ee66698" "1"
 ```
 
 이는 R의 list가 파이썬의 list처럼 modify-in-place를 지원하는 mutable object라는 것을 보여준다.
@@ -341,17 +341,17 @@ pryr::inspect(r_list)
 ```
 
 ```
-## <VECSXP 0x7fdd7313c698>
-##   <INTSXP 0x7fdd64f3b2b0>
-##   <INTSXP 0x7fdd7336fa40>
-##   <INTSXP 0x7fdd7336fa08>
-##   <INTSXP 0x7fdd7336f998>
-##   <INTSXP 0x7fdd7336f960>
-##   <INTSXP 0x7fdd7336f928>
-##   <INTSXP 0x7fdd7336f8f0>
-##   <INTSXP 0x7fdd7336f8b8>
-##   <INTSXP 0x7fdd7336f880>
-##   <INTSXP 0x7fdd7336f848>
+## <VECSXP 0x7fd23ee66698>
+##   <INTSXP 0x7fd2489d5038>
+##   <INTSXP 0x7fd23f659fc8>
+##   <INTSXP 0x7fd23f659f58>
+##   <INTSXP 0x7fd23f659f20>
+##   <INTSXP 0x7fd23f659eb0>
+##   <INTSXP 0x7fd23f659e78>
+##   <INTSXP 0x7fd23f659e40>
+##   <INTSXP 0x7fd23f659e08>
+##   <INTSXP 0x7fd23f659d98>
+##   <INTSXP 0x7fd23f659d60>
 ```
 
 이 결과는 `r_list`가 VECSXP라는 형태(list)의 C 객체이며, 그 각 원소는 INTSXP라는 형태(integer vector)의 C 객체임을 보여주고, VECSXP 객체와 각 INTSXP 객체가 저장된 메모리 주소를 보여준다.
@@ -376,7 +376,7 @@ c(pryr::address(r_list), pryr::refs(r_list))
 ```
 
 ```
-## [1] "0x7fdd658f8608" "1"
+## [1] "0x7fd248788c08" "1"
 ```
 
 좀 더 자세히 살펴보기 위해 `pryr::inspect()`를 다시 호출해 보자.
@@ -387,18 +387,18 @@ pryr::inspect(r_list)
 ```
 
 ```
-## <VECSXP 0x7fdd658f8608>
-##   <INTSXP 0x7fdd64f3b2b0>
-##   <INTSXP 0x7fdd7336fa40>
-##   <INTSXP 0x7fdd7336fa08>
-##   <INTSXP 0x7fdd7336f998>
-##   <INTSXP 0x7fdd7336f960>
-##   <INTSXP 0x7fdd7336f928>
-##   <INTSXP 0x7fdd7336f8f0>
-##   <INTSXP 0x7fdd7336f8b8>
-##   <INTSXP 0x7fdd7336f880>
-##   <INTSXP 0x7fdd7336f848>
-##   <INTSXP 0x7fdd66486ba8>
+## <VECSXP 0x7fd248788c08>
+##   <INTSXP 0x7fd2489d5038>
+##   <INTSXP 0x7fd23f659fc8>
+##   <INTSXP 0x7fd23f659f58>
+##   <INTSXP 0x7fd23f659f20>
+##   <INTSXP 0x7fd23f659eb0>
+##   <INTSXP 0x7fd23f659e78>
+##   <INTSXP 0x7fd23f659e40>
+##   <INTSXP 0x7fd23f659e08>
+##   <INTSXP 0x7fd23f659d98>
+##   <INTSXP 0x7fd23f659d60>
+##   <INTSXP 0x7fd2387c6648>
 ```
 
 VECSXP 객체의 메모리 주소는 변경된 반면, 하나의 추가된 INTSXP 객체를 제외하면, 기존에 있던 INTSXP 객체의 메모리 주소는 여전히 동일함을 보여준다. 그리고, `pryr::address(r_list)`가 보여주는 주소값은 VECSXP 객체의 주소값임을 보여준다.
@@ -420,25 +420,25 @@ for (x in 12:30) {
 ```
 
 ```
-## Number of elements: 12, memory address: 0x7fdd64ab4008
-## Number of elements: 13, memory address: 0x7fdd64f1ead8
-## Number of elements: 14, memory address: 0x7fdd64f1e978
-## Number of elements: 15, memory address: 0x7fdd64f1e818
-## Number of elements: 16, memory address: 0x7fdd64f1e6b8
-## Number of elements: 17, memory address: 0x6000038f5c80
-## Number of elements: 18, memory address: 0x6000038f5d40
-## Number of elements: 19, memory address: 0x60000368f8e0
-## Number of elements: 20, memory address: 0x6000034997a0
-## Number of elements: 21, memory address: 0x6000034997a0
-## Number of elements: 22, memory address: 0x600003289fe0
-## Number of elements: 23, memory address: 0x600003289fe0
-## Number of elements: 24, memory address: 0x600003198800
-## Number of elements: 25, memory address: 0x600003198800
-## Number of elements: 26, memory address: 0x7fdd858b74b0
-## Number of elements: 27, memory address: 0x7fdd858b74b0
-## Number of elements: 28, memory address: 0x7fdd63f1a360
-## Number of elements: 29, memory address: 0x7fdd63f1a360
-## Number of elements: 30, memory address: 0x7fdd63f1a480
+## Number of elements: 12, memory address: 0x7fd2487ede18
+## Number of elements: 13, memory address: 0x7fd239fd84e8
+## Number of elements: 14, memory address: 0x7fd239fd8388
+## Number of elements: 15, memory address: 0x7fd239fd8228
+## Number of elements: 16, memory address: 0x7fd239fd80c8
+## Number of elements: 17, memory address: 0x6000036d39c0
+## Number of elements: 18, memory address: 0x6000036d3900
+## Number of elements: 19, memory address: 0x6000038adee0
+## Number of elements: 20, memory address: 0x600003aa2220
+## Number of elements: 21, memory address: 0x600003aa2220
+## Number of elements: 22, memory address: 0x600003ca12c0
+## Number of elements: 23, memory address: 0x600003ca12c0
+## Number of elements: 24, memory address: 0x600003fa2b00
+## Number of elements: 25, memory address: 0x600003fa2b00
+## Number of elements: 26, memory address: 0x7fd23f9ecfe0
+## Number of elements: 27, memory address: 0x7fd23f9ecfe0
+## Number of elements: 28, memory address: 0x7fd23f9ed0f0
+## Number of elements: 29, memory address: 0x7fd23f9ed0f0
+## Number of elements: 30, memory address: 0x7fd23f9ed210
 ```
 
 R list의 경우, 원소 개수가 하나씩 증가할 때마다 메모리 주소가 변경됨을 확인할 수 있을 것이다. 즉, list의 길이가 변경될 때마다 매번 새로 list를 위한 메모리가 재할당되기 때문에 python의 list보다 컴퓨팅 리소스가 좀 더 소모되며, 그 정도는 list의 길이가 길수록 증가할 것이다. 다만, 앞에서 살펴본 바와 같이 VECSXP 객체의 메모리는 재할당되는 반면, 각 원소값이 저장된 메모리는 그대로 유지되어 참조되므로, 추가적인 컴퓨팅은 제한적이라 하겠다.

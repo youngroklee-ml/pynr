@@ -37,3 +37,4 @@ r-1
 interesting-differences
 큰-정수
 결측값
+문자열

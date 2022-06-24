@@ -100,4 +100,98 @@ type(np.array(['5', np.nan])[1])
 
 
 
+## 문자열
+
+파이썬과 R이 문자열을 다루는 방식을 조금 들여다보자. 우선 파이썬으로 문자열 객체를 만들어 보자. 객체 형태가 `str`로 나타난다. 이는 문자의 시퀀스이며, immutable object이다.
+
+```{python}
+py_string = "Hello World!"
+type(py_string)
+```
+
+시퀀스이기 때문에, slicing 등이 지원된다.
+
+```{python}
+py_string[0:5]
+```
+
+파이썬에서 이 특정 문자열을 위한 메모리 주소와 할당량을 보자.
+
+```{python}
+id(py_string)
+sys.getsizeof(py_string)
+```
+
+이제, 파이썬 리스트를 만들고, 각 원소에 동일한 문자열을 저장해 보자. 이 때, 같은 문자열 객체를 재사용하는 것이 아니라, 매번 새롭게 동일한 문자열 값을 저장해 보자.
+
+만약 for문을 사용한다면, 파이썬은 모든 같은 문자열을 같은 메모리에 저장하고, list의 모든 원소가 같은 메모리 주소를 참조하도록 할 것이다. 파이썬에서 for문이 메모리를 좀 더 효율적으로 사용하기 위한 어떤 처리를 하는 것으로 보인다.
+
+```{python}
+py_list = list([None] * 5)
+for i in range(5):
+  py_list[i] = "Hello Python!"
+[id(x) for x in py_list]
+```
+
+하지만, 만약 for문을 사용하지 않고 매번 새롭게 원소를 추가하는 경우라면, 파이썬은 같은 문자열을 다른 메모리 주소에 저장할 것이다. 
+
+```{python}
+py_list = list([None] * 5)
+py_list[0] = "Hello Python!"
+py_list[1] = "Hello Python!"
+py_list[2] = "Hello Python!"
+py_list[3] = "Hello Python!"
+py_list[4] = "Hello Python!"
+[id(x) for x in py_list]
+```
+
+이와 같이 같은 값의 immutable 문자열을 메모리의 여러 곳에 중복하여 저장하는 것은 경우에 따라 메모리의 사용이 다소 비효율적일 수 있음을 보인다.
+
+
+
+다음으로 R의 경우를 살펴보자. R은 문자열을 "character"라는 형태의 데이터로 저장한다. 이는 R 내에서는 vector와 같은 시퀀스가 아니라 하나의 독립적인 값으로 다루어지기 때문에, `[]` operator를 사용하여 문자열의 일부를 slicing할 수 없고, 별도의 함수들을 사용하여 추출해야 한다.
+
+예를 들어, 다음 코드의 결과는 아마 기대와 다를 것이다. 무슨 일이 일어나고 있는지 잠시 생각해 보면, `r_string`은 character 형태의 길이가 1인 vector이고, 따라서 `r_string[1]`은 입력한 문자열을 반환하고, `r_string[2:5]`는 해당 원소가 존재하지 않으므로 `NA`를 반환한다.
+
+```{r}
+r_string <- "Hello R!"
+typeof(r_string)
+r_string[1:5]
+```
+
+이 경우, `r_string`에 입력한 문자열의 첫 다섯 개의 문자를 가져오기 위해서는 문자열을 다루는 함수를 사용해야 할 것이다.
+
+```{r}
+substr(r_string, 1, 5)
+```
+
+`r_string`에 할당된 메모리 주소 정보를 살펴보자.
+
+```{r}
+pryr::inspect(r_string)
+```
+
+여기에서 최상위 STRSXP는 vector를 나타내며, CHARSXP는 vector의 원소인 문자열을 나타낸다.
+
+파이썬의 경우와 마찬가지로 시퀀스에 문자열을 입력해 보자. 모든 원소가 문자열이기 때문에 list 대신 vector를 사용해서 보도록 하자. 파이썬에서 다소 비효율적으로 보였던 메모리 관리와 비교하기 위해, R에서도 for문을 사용하지 않고 원소 하나 하나에 값을 따로 할당하도록 하자.
+
+```{r}
+r_vector <- vector("character", 5L)
+r_vector[[1]] <- "Hello R!"
+r_vector[[2]] <- "Hello R!"
+r_vector[[3]] <- "Hello R!"
+r_vector[[4]] <- "Hello R!"
+r_vector[[5]] <- "Hello R!"
+```
+
+`pryr::inspect()`를 이용하여 이 vector 객체의 메모리 사용을 살펴보면, 다섯 개 문자열 원소 모두 동일한 메모리 주소를 참조하는 것을 볼 수 있다. 이에 더하여, 그 메모리 주소가 앞서 생성했던 `r_string`의 원소인 문자열의 메모리 주소와 동일함을 확인할 수 있다. R에서는 하나의 R 세션 내에서 각 고유한 문자열값이 메모리 한 곳에만 저장되며, 나중에 동일한 문자열값을 다시 생성하려 하면, 중복하여 다른 위치에 생성하는 대신, 기존에 저장된 메모리를 참조한다. 따라서 매우 긴 동일한 문자열이 여러 이름 혹은 시퀀스의 여러 위치에 중복되는 경우, R은 효율적으로 메모리를 관리하기 위해 노력한다.
+
+```{r}
+pryr::inspect(r_vector)
+```
+
+
+
+
+
 
