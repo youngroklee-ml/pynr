@@ -249,12 +249,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="tuple-list-list.html#cb64-1" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">0</span>]</span></code></pre></div>
 <pre><code>## 1</code></pre>
 <div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="tuple-list-list.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_list)</span></code></pre></div>
-<pre><code>## 4701609344</code></pre>
+<pre><code>## 4703896256</code></pre>
 <div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="tuple-list-list.html#cb68-1" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb68-2"><a href="tuple-list-list.html#cb68-2" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">0</span>]</span></code></pre></div>
 <pre><code>## 0</code></pre>
 <div class="sourceCode" id="cb70"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb70-1"><a href="tuple-list-list.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_list)</span></code></pre></div>
-<pre><code>## 4701609344</code></pre>
+<pre><code>## 4703896256</code></pre>
 <p>위 결과와 같이, 원소의 값을 변경하더라도 list 객체의 메모리 위치는 변함이 없는 modify-in-place 방식을 지원한다.</p>
 <div id="mutable-element-of-tuple" class="section level4 hasAnchor" number="3.1.1.1">
 <h4><span class="header-section-number">3.1.1.1</span> Mutable element of tuple<a href="tuple-list-list.html#mutable-element-of-tuple" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -274,20 +274,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>시퀀스에 새로운 11번째 원소를 추가하고 싶다고 생각해 보자.</p>
 <p>Tuple의 경우 길이가 정해진 시퀀스이기 때문에 새로운 원소를 이후에 추가할 수가 없다. 만약 꼭 추가해야 한다면, 새로운 tuple을 생성하는 방법 밖에는 없다. 이 경우, 새로운 tuple이 생성되었음을 <code>id()</code> 함수를 통해 확인할 수 있다.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb76-1"><a href="tuple-list-list.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_tuple)</span></code></pre></div>
-<pre><code>## 4694979008</code></pre>
+<pre><code>## 4697260480</code></pre>
 <div class="sourceCode" id="cb78"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb78-1"><a href="tuple-list-list.html#cb78-1" aria-hidden="true" tabindex="-1"></a>py_tuple <span class="op">=</span> py_tuple <span class="op">+</span> (<span class="dv">11</span>, )</span>
 <span id="cb78-2"><a href="tuple-list-list.html#cb78-2" aria-hidden="true" tabindex="-1"></a>py_tuple[<span class="dv">10</span>]</span></code></pre></div>
 <pre><code>## 11</code></pre>
 <div class="sourceCode" id="cb80"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb80-1"><a href="tuple-list-list.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_tuple)</span></code></pre></div>
-<pre><code>## 4699517888</code></pre>
+<pre><code>## 4701795264</code></pre>
 <p>반면, list의 경우 <code>append()</code>를 사용하여 기존의 list에 원소를 추가할 수 있다.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb82-1"><a href="tuple-list-list.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_list)</span></code></pre></div>
-<pre><code>## 4701609344</code></pre>
+<pre><code>## 4703896256</code></pre>
 <div class="sourceCode" id="cb84"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb84-1"><a href="tuple-list-list.html#cb84-1" aria-hidden="true" tabindex="-1"></a>py_list.append(<span class="dv">11</span>)</span>
 <span id="cb84-2"><a href="tuple-list-list.html#cb84-2" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">10</span>]</span></code></pre></div>
 <pre><code>## 11</code></pre>
 <div class="sourceCode" id="cb86"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb86-1"><a href="tuple-list-list.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_list)</span></code></pre></div>
-<pre><code>## 4701609344</code></pre>
+<pre><code>## 4703896256</code></pre>
 <p>이 예에서 <code>py_list</code>의 메모리 주소는 변하지 않았다. 이는 마치 list가 mutable 객체이기 때문인 것으로 보이지만, 필자는 이는 절반만 맞는 설명이라 하겠다. 실제로는, 파이썬은 list를 생성할 때, 이후에 추가될 수 있는 원소를 위한 공간을 미리 어느 정도 남겨둔다. 따라서, 그 남겨둔 공간까지는 원소를 추가하더라도 list에 할당된 메모리 공간이 변하지 않지만, 그 범위를 넘어서는 순간 list에 메모리 공간이 재할당된다. 이 재할당 작업을 너무 자주 수행하지 않기 위해 미리 당장 필요하지 않은 메모리를 확보해 두는 것이다. 다음 예는 list의 메모리 공간이 매 원소 추가 시마다 증가하는 것이 아니라 이따금 한 번에 증가한다는 것을 보여준다.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="tuple-list-list.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.getsizeof(py_list))</span></code></pre></div>
 <pre><code>## 200</code></pre>
@@ -316,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>주의: <code>sys.getsizeof()</code>는 리스트의 각 원소가 참조하는 값에 할당된 메모리를 포함하지 않고, 단지 리스트 자체(각 원소의 주소값을 저장하는 시퀀스)에 할당된 메모리 크기만 나타낸다.</strong></p>
 <p>이 예에서 <code>py_list</code>의 메모리 주소는 이전의 메모리 주소와 여전히 동일하다.</p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb92-1"><a href="tuple-list-list.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_list)</span></code></pre></div>
-<pre><code>## 4701609344</code></pre>
+<pre><code>## 4703896256</code></pre>
 </div>
 </div>
 <div id="list-in-r" class="section level2 hasAnchor" number="3.2">
@@ -358,19 +358,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.2.1</span> Mutable object<a href="tuple-list-list.html#mutable-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>이 list가 저장된 메모리 주소를 <code>pryr::address()</code>로 출력해 보자. 또한, 동일한 list 객체가 또 다른 이름으로 참조되고 있지 않은지를 보기 위해 <code>pryr::refs()</code>를 함께 호출해 보자. 이 값이 1인 경우(single binding)에는 modify-in-place 방식이 작동하여 원소값 변경 전/후의 list의 메모리 주소가 변경되지 않지만, 2 이상인 경우에는 copy-on-modify 방식이 작동하여 원소값 변경 시 list가 항상 다른 곳에 복사된 뒤 값이 변경된다.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="tuple-list-list.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_list), pryr<span class="sc">::</span><span class="fu">refs</span>(r_list))</span></code></pre></div>
-<pre><code>## [1] &quot;0x7fd23f518818&quot; &quot;3&quot;</code></pre>
+<pre><code>## [1] &quot;0x7fcfdf657618&quot; &quot;3&quot;</code></pre>
 <p>이후, 첫 번째 원소의 값을 변경하려 시도해 보자. 이 때, 만약 앞에서 <code>pryr::refs(r_list)</code>의 값이 1보다 큰 수였다면, 메모리 주소가 변경될 것이다.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="tuple-list-list.html#cb98-1" aria-hidden="true" tabindex="-1"></a>r_list[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> 0L</span>
 <span id="cb98-2"><a href="tuple-list-list.html#cb98-2" aria-hidden="true" tabindex="-1"></a>r_list[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="tuple-list-list.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_list), pryr<span class="sc">::</span><span class="fu">refs</span>(r_list))</span></code></pre></div>
-<pre><code>## [1] &quot;0x7fd23ee66698&quot; &quot;1&quot;</code></pre>
+<pre><code>## [1] &quot;0x7fcfbdff9898&quot; &quot;1&quot;</code></pre>
 <p>앞의 결과에서 원소값 변경 이후 <code>pryr::refs(r_list)</code>의 값이 1이었다면, 다시금 첫 번째 원소의 값(혹은 어떤 원소의 값이든)을 변경할 때 <code>r_list</code>의 메모리 주소는 동일하게 유지될 것이다.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="tuple-list-list.html#cb102-1" aria-hidden="true" tabindex="-1"></a>r_list[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> 1L</span>
 <span id="cb102-2"><a href="tuple-list-list.html#cb102-2" aria-hidden="true" tabindex="-1"></a>r_list[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="tuple-list-list.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_list), pryr<span class="sc">::</span><span class="fu">refs</span>(r_list))</span></code></pre></div>
-<pre><code>## [1] &quot;0x7fd23ee66698&quot; &quot;1&quot;</code></pre>
+<pre><code>## [1] &quot;0x7fcfbdff9898&quot; &quot;1&quot;</code></pre>
 <p>이는 R의 list가 파이썬의 list처럼 modify-in-place를 지원하는 mutable object라는 것을 보여준다.</p>
 <p><strong>주의: RStudio IDE의 인터랙티브 환경에서 수행할 때는 아마도 copy-on-modify 방식이 작동할 수 있는데, 이는 RStudio IDE 내에서 해당 list 객체를 추가로 참조하여 <code>pryr::refs()</code> 값이 항상 1보다 크기 때문일 것이다. 따라서, modify-in-place는 인터랙티브 환경이 아닐 때 더 잘 확인할 수 있을 것이다.</strong></p>
 </div>
@@ -378,17 +378,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.2.2</span> Append items<a href="tuple-list-list.html#append-items-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>먼저, <code>r_list</code>의 내부 구조를 살펴보기 위해 <code>pryr::inspect()</code>를 호출해 보자.</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="tuple-list-list.html#cb106-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_list)</span></code></pre></div>
-<pre><code>## &lt;VECSXP 0x7fd23ee66698&gt;
-##   &lt;INTSXP 0x7fd2489d5038&gt;
-##   &lt;INTSXP 0x7fd23f659fc8&gt;
-##   &lt;INTSXP 0x7fd23f659f58&gt;
-##   &lt;INTSXP 0x7fd23f659f20&gt;
-##   &lt;INTSXP 0x7fd23f659eb0&gt;
-##   &lt;INTSXP 0x7fd23f659e78&gt;
-##   &lt;INTSXP 0x7fd23f659e40&gt;
-##   &lt;INTSXP 0x7fd23f659e08&gt;
-##   &lt;INTSXP 0x7fd23f659d98&gt;
-##   &lt;INTSXP 0x7fd23f659d60&gt;</code></pre>
+<pre><code>## &lt;VECSXP 0x7fcfbdff9898&gt;
+##   &lt;INTSXP 0x7fcfe80ba870&gt;
+##   &lt;INTSXP 0x7fcfdf798d90&gt;
+##   &lt;INTSXP 0x7fcfdf798d58&gt;
+##   &lt;INTSXP 0x7fcfdf798d20&gt;
+##   &lt;INTSXP 0x7fcfdf798ce8&gt;
+##   &lt;INTSXP 0x7fcfdf798c78&gt;
+##   &lt;INTSXP 0x7fcfdf798c08&gt;
+##   &lt;INTSXP 0x7fcfdf798bd0&gt;
+##   &lt;INTSXP 0x7fcfdf798b60&gt;
+##   &lt;INTSXP 0x7fcfdf798b28&gt;</code></pre>
 <p>이 결과는 <code>r_list</code>가 VECSXP라는 형태(list)의 C 객체이며, 그 각 원소는 INTSXP라는 형태(integer vector)의 C 객체임을 보여주고, VECSXP 객체와 각 INTSXP 객체가 저장된 메모리 주소를 보여준다.</p>
 <p>파이썬의 list에서 새로운 원소를 추가하기 위해 <code>append()</code> method를 사용했던 것과 달리, R의 list에서는 기존 원소를 변경하는 것과 동일한 방법으로 새로운 원소를 추가할 수 있다.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="tuple-list-list.html#cb108-1" aria-hidden="true" tabindex="-1"></a>r_list[[<span class="dv">11</span>]] <span class="ot">&lt;-</span> 11L</span>
@@ -396,21 +396,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 11</code></pre>
 <p>단, 이 때는 modify-in-place가 아닌 copy-on-modify 방식이 작동한다는 것을 인지하자. 다음에서 메모리 주소가 이전과 변경되었음을 확인할 수 있을 것이다.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="tuple-list-list.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(pryr<span class="sc">::</span><span class="fu">address</span>(r_list), pryr<span class="sc">::</span><span class="fu">refs</span>(r_list))</span></code></pre></div>
-<pre><code>## [1] &quot;0x7fd248788c08&quot; &quot;1&quot;</code></pre>
+<pre><code>## [1] &quot;0x7fcfbcc6d808&quot; &quot;1&quot;</code></pre>
 <p>좀 더 자세히 살펴보기 위해 <code>pryr::inspect()</code>를 다시 호출해 보자.</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="tuple-list-list.html#cb112-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_list)</span></code></pre></div>
-<pre><code>## &lt;VECSXP 0x7fd248788c08&gt;
-##   &lt;INTSXP 0x7fd2489d5038&gt;
-##   &lt;INTSXP 0x7fd23f659fc8&gt;
-##   &lt;INTSXP 0x7fd23f659f58&gt;
-##   &lt;INTSXP 0x7fd23f659f20&gt;
-##   &lt;INTSXP 0x7fd23f659eb0&gt;
-##   &lt;INTSXP 0x7fd23f659e78&gt;
-##   &lt;INTSXP 0x7fd23f659e40&gt;
-##   &lt;INTSXP 0x7fd23f659e08&gt;
-##   &lt;INTSXP 0x7fd23f659d98&gt;
-##   &lt;INTSXP 0x7fd23f659d60&gt;
-##   &lt;INTSXP 0x7fd2387c6648&gt;</code></pre>
+<pre><code>## &lt;VECSXP 0x7fcfbcc6d808&gt;
+##   &lt;INTSXP 0x7fcfe80ba870&gt;
+##   &lt;INTSXP 0x7fcfdf798d90&gt;
+##   &lt;INTSXP 0x7fcfdf798d58&gt;
+##   &lt;INTSXP 0x7fcfdf798d20&gt;
+##   &lt;INTSXP 0x7fcfdf798ce8&gt;
+##   &lt;INTSXP 0x7fcfdf798c78&gt;
+##   &lt;INTSXP 0x7fcfdf798c08&gt;
+##   &lt;INTSXP 0x7fcfdf798bd0&gt;
+##   &lt;INTSXP 0x7fcfdf798b60&gt;
+##   &lt;INTSXP 0x7fcfdf798b28&gt;
+##   &lt;INTSXP 0x7fcfbcd04648&gt;</code></pre>
 <p>VECSXP 객체의 메모리 주소는 변경된 반면, 하나의 추가된 INTSXP 객체를 제외하면, 기존에 있던 INTSXP 객체의 메모리 주소는 여전히 동일함을 보여준다. 그리고, <code>pryr::address(r_list)</code>가 보여주는 주소값은 VECSXP 객체의 주소값임을 보여준다.</p>
 <p>원소를 계속 하나씩 추가하면서, list 메모리 위치가 어떻게 바뀌는지 살펴보자.</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="tuple-list-list.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (x <span class="cf">in</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">30</span>) {</span>
@@ -423,25 +423,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-8"><a href="tuple-list-list.html#cb114-8" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb114-9"><a href="tuple-list-list.html#cb114-9" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb114-10"><a href="tuple-list-list.html#cb114-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Number of elements: 12, memory address: 0x7fd2487ede18
-## Number of elements: 13, memory address: 0x7fd239fd84e8
-## Number of elements: 14, memory address: 0x7fd239fd8388
-## Number of elements: 15, memory address: 0x7fd239fd8228
-## Number of elements: 16, memory address: 0x7fd239fd80c8
-## Number of elements: 17, memory address: 0x6000036d39c0
-## Number of elements: 18, memory address: 0x6000036d3900
-## Number of elements: 19, memory address: 0x6000038adee0
-## Number of elements: 20, memory address: 0x600003aa2220
-## Number of elements: 21, memory address: 0x600003aa2220
-## Number of elements: 22, memory address: 0x600003ca12c0
-## Number of elements: 23, memory address: 0x600003ca12c0
-## Number of elements: 24, memory address: 0x600003fa2b00
-## Number of elements: 25, memory address: 0x600003fa2b00
-## Number of elements: 26, memory address: 0x7fd23f9ecfe0
-## Number of elements: 27, memory address: 0x7fd23f9ecfe0
-## Number of elements: 28, memory address: 0x7fd23f9ed0f0
-## Number of elements: 29, memory address: 0x7fd23f9ed0f0
-## Number of elements: 30, memory address: 0x7fd23f9ed210</code></pre>
+<pre><code>## Number of elements: 12, memory address: 0x7fcfdec60218
+## Number of elements: 13, memory address: 0x7fcfbd037ae8
+## Number of elements: 14, memory address: 0x7fcfbd037988
+## Number of elements: 15, memory address: 0x7fcfbd037828
+## Number of elements: 16, memory address: 0x7fcfbd0376c8
+## Number of elements: 17, memory address: 0x600000f6fcc0
+## Number of elements: 18, memory address: 0x600000f6fd80
+## Number of elements: 19, memory address: 0x600000173b50
+## Number of elements: 20, memory address: 0x60000037f480
+## Number of elements: 21, memory address: 0x60000037f480
+## Number of elements: 22, memory address: 0x60000057fc00
+## Number of elements: 23, memory address: 0x60000057fc00
+## Number of elements: 24, memory address: 0x600000679500
+## Number of elements: 25, memory address: 0x600000679500
+## Number of elements: 26, memory address: 0x7fcfbc166060
+## Number of elements: 27, memory address: 0x7fcfbc166060
+## Number of elements: 28, memory address: 0x7fcfbc166170
+## Number of elements: 29, memory address: 0x7fcfbc166170
+## Number of elements: 30, memory address: 0x7fcfbc166290</code></pre>
 <p>R list의 경우, 원소 개수가 하나씩 증가할 때마다 메모리 주소가 변경됨을 확인할 수 있을 것이다. 즉, list의 길이가 변경될 때마다 매번 새로 list를 위한 메모리가 재할당되기 때문에 python의 list보다 컴퓨팅 리소스가 좀 더 소모되며, 그 정도는 list의 길이가 길수록 증가할 것이다. 다만, 앞에서 살펴본 바와 같이 VECSXP 객체의 메모리는 재할당되는 반면, 각 원소값이 저장된 메모리는 그대로 유지되어 참조되므로, 추가적인 컴퓨팅은 제한적이라 하겠다.</p>
 
 </div>

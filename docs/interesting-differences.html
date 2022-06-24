@@ -271,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb220"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb220-1"><a href="interesting-differences.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="va">None</span></span>
 <span id="cb220-2"><a href="interesting-differences.html#cb220-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(<span class="va">None</span>)</span></code></pre></div>
 <pre><code>## &lt;class &#39;NoneType&#39;&gt;</code></pre>
-<p>이 결측값은 정수형, 실수형, 문자형 array.array에 원소로 추가할 수가 없는데, 이는 array.array가 type coercion을 지원하지 않기 때문일 것이다.</p>
+<p>이 결측값은 정수형, 실수형, 문자형 array.array에 원소로 추가할 수가 없다.</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb222-1"><a href="interesting-differences.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> array <span class="im">import</span> array</span>
 <span id="cb222-2"><a href="interesting-differences.html#cb222-2" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;l&#39;</span>, [<span class="dv">5</span>, <span class="va">None</span>])</span></code></pre></div>
 <pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: an integer is required (got type NoneType)</code></pre>
@@ -279,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: must be real number, not NoneType</code></pre>
 <div class="sourceCode" id="cb226"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb226-1"><a href="interesting-differences.html#cb226-1" aria-hidden="true" tabindex="-1"></a>array(<span class="st">&#39;u&#39;</span>, [<span class="st">&#39;5&#39;</span>, <span class="va">None</span>])</span></code></pre></div>
 <pre><code>## Error in py_call_impl(callable, dots$args, dots$keywords): TypeError: array item must be unicode character</code></pre>
-<p>결측값을 NumPy array에 입력해 보자. NumPy는 <code>np.nan</code>이라는 실수형 결측값을 지원하며, 이를 사용하는 것이 흔한 경우다. 이때 array의 다른 관측값의 형태에 따라 다소 예상치 않은 결과를 얻을 수 있으니 조심하도록 하자.</p>
+<p>대신, 결측값을 NumPy array에 입력해 보자. NumPy는 <code>np.nan</code>이라는 실수형 결측값을 지원하며, 이를 사용하는 것이 흔한 경우다. 이때 array 내에 존재하는 다른 관측값의 형태에 따라 type coercion에 의해 예상치 않은 결과를 얻을 수 있으니 조심하도록 하자.</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb228-1"><a href="interesting-differences.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb228-2"><a href="interesting-differences.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(np.nan)</span></code></pre></div>
 <pre><code>## &lt;class &#39;float&#39;&gt;</code></pre>
@@ -300,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="문자열" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> 문자열<a href="interesting-differences.html#문자열" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>파이썬과 R이 문자열을 다루는 방식을 조금 들여다보자. 우선 파이썬으로 문자열 객체를 만들어 보자. 객체 형태가 <code>str</code>로 나타난다. 이는 문자의 시퀀스이며, immutable object이다.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb240-1"><a href="interesting-differences.html#cb240-1" aria-hidden="true" tabindex="-1"></a>py_string <span class="op">=</span> <span class="st">&quot;Hello World!&quot;</span></span>
+<div class="sourceCode" id="cb240"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb240-1"><a href="interesting-differences.html#cb240-1" aria-hidden="true" tabindex="-1"></a>py_string <span class="op">=</span> <span class="st">&quot;Hello Python!&quot;</span></span>
 <span id="cb240-2"><a href="interesting-differences.html#cb240-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(py_string)</span></code></pre></div>
 <pre><code>## &lt;class &#39;str&#39;&gt;</code></pre>
 <p>시퀀스이기 때문에, slicing 등이 지원된다.</p>
@@ -308,16 +308,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## &#39;Hello&#39;</code></pre>
 <p>파이썬에서 이 특정 문자열을 위한 메모리 주소와 할당량을 보자.</p>
 <div class="sourceCode" id="cb244"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb244-1"><a href="interesting-differences.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span>(py_string)</span></code></pre></div>
-<pre><code>## 4701737904</code></pre>
+<pre><code>## 4699474288</code></pre>
 <div class="sourceCode" id="cb246"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb246-1"><a href="interesting-differences.html#cb246-1" aria-hidden="true" tabindex="-1"></a>sys.getsizeof(py_string)</span></code></pre></div>
-<pre><code>## 61</code></pre>
+<pre><code>## 62</code></pre>
 <p>이제, 파이썬 리스트를 만들고, 각 원소에 동일한 문자열을 저장해 보자. 이 때, 같은 문자열 객체를 재사용하는 것이 아니라, 매번 새롭게 동일한 문자열 값을 저장해 보자.</p>
 <p>만약 for문을 사용한다면, 파이썬은 모든 같은 문자열을 같은 메모리에 저장하고, list의 모든 원소가 같은 메모리 주소를 참조하도록 할 것이다. 파이썬에서 for문이 메모리를 좀 더 효율적으로 사용하기 위한 어떤 처리를 하는 것으로 보인다.</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb248-1"><a href="interesting-differences.html#cb248-1" aria-hidden="true" tabindex="-1"></a>py_list <span class="op">=</span> <span class="bu">list</span>([<span class="va">None</span>] <span class="op">*</span> <span class="dv">5</span>)</span>
 <span id="cb248-2"><a href="interesting-differences.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
 <span id="cb248-3"><a href="interesting-differences.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  py_list[i] <span class="op">=</span> <span class="st">&quot;Hello Python!&quot;</span></span>
 <span id="cb248-4"><a href="interesting-differences.html#cb248-4" aria-hidden="true" tabindex="-1"></a>[<span class="bu">id</span>(x) <span class="cf">for</span> x <span class="kw">in</span> py_list]</span></code></pre></div>
-<pre><code>## [4701753136, 4701753136, 4701753136, 4701753136, 4701753136]</code></pre>
+<pre><code>## [4699487664, 4699487664, 4699487664, 4699487664, 4699487664]</code></pre>
 <p>하지만, 만약 for문을 사용하지 않고 매번 새롭게 원소를 추가하는 경우라면, 파이썬은 같은 문자열을 다른 메모리 주소에 저장할 것이다.</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb250-1"><a href="interesting-differences.html#cb250-1" aria-hidden="true" tabindex="-1"></a>py_list <span class="op">=</span> <span class="bu">list</span>([<span class="va">None</span>] <span class="op">*</span> <span class="dv">5</span>)</span>
 <span id="cb250-2"><a href="interesting-differences.html#cb250-2" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">0</span>] <span class="op">=</span> <span class="st">&quot;Hello Python!&quot;</span></span>
@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb250-5"><a href="interesting-differences.html#cb250-5" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">3</span>] <span class="op">=</span> <span class="st">&quot;Hello Python!&quot;</span></span>
 <span id="cb250-6"><a href="interesting-differences.html#cb250-6" aria-hidden="true" tabindex="-1"></a>py_list[<span class="dv">4</span>] <span class="op">=</span> <span class="st">&quot;Hello Python!&quot;</span></span>
 <span id="cb250-7"><a href="interesting-differences.html#cb250-7" aria-hidden="true" tabindex="-1"></a>[<span class="bu">id</span>(x) <span class="cf">for</span> x <span class="kw">in</span> py_list]</span></code></pre></div>
-<pre><code>## [4701761968, 4701762160, 4701761776, 4701762224, 4701762416]</code></pre>
+<pre><code>## [4699496496, 4699496688, 4699496752, 4699496944, 4699497136]</code></pre>
 <p>이와 같이 같은 값의 immutable 문자열을 메모리의 여러 곳에 중복하여 저장하는 것은 경우에 따라 메모리의 사용이 다소 비효율적일 수 있음을 보인다.</p>
 <p>다음으로 R의 경우를 살펴보자. R은 문자열을 “character”라는 형태의 데이터로 저장한다. 이는 R 내에서는 vector와 같은 시퀀스가 아니라 하나의 독립적인 값으로 다루어지기 때문에, <code>[]</code> operator를 사용하여 문자열의 일부를 slicing할 수 없고, 별도의 함수들을 사용하여 추출해야 한다.</p>
 <p>예를 들어, 다음 코드의 결과는 아마 기대와 다를 것이다. 무슨 일이 일어나고 있는지 잠시 생각해 보면, <code>r_string</code>은 character 형태의 길이가 1인 vector이고, 따라서 <code>r_string[1]</code>은 입력한 문자열을 반환하고, <code>r_string[2:5]</code>는 해당 원소가 존재하지 않으므로 <code>NA</code>를 반환한다.</p>
@@ -340,10 +340,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;Hello&quot;</code></pre>
 <p><code>r_string</code>에 할당된 메모리 주소 정보를 살펴보자.</p>
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="interesting-differences.html#cb258-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_string)</span></code></pre></div>
-<pre><code>## &lt;STRSXP 0x7fe2f0bf9cf0&gt;
-##   &lt;CHARSXP 0x7fe2e0347148&gt;
+<pre><code>## &lt;STRSXP 0x7f8bc70f2748&gt;
+##   &lt;CHARSXP 0x7f8bc3480948&gt;
 ##   attributes: 
-##     &lt;CHARSXP 0x7fe307135340&gt;</code></pre>
+##     &lt;CHARSXP 0x7f8bf097eb40&gt;</code></pre>
 <p>여기에서 최상위 STRSXP는 vector를 나타내며, CHARSXP는 vector의 원소인 문자열을 나타낸다.</p>
 <p>파이썬의 경우와 마찬가지로 시퀀스에 문자열을 입력해 보자. 모든 원소가 문자열이기 때문에 list 대신 vector를 사용해서 보도록 하자. 파이썬에서 다소 비효율적으로 보였던 메모리 관리와 비교하기 위해, R에서도 for문을 사용하지 않고 원소 하나 하나에 값을 따로 할당하도록 하자.</p>
 <div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="interesting-differences.html#cb260-1" aria-hidden="true" tabindex="-1"></a>r_vector <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="st">&quot;character&quot;</span>, 5L)</span>
@@ -352,16 +352,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb260-4"><a href="interesting-differences.html#cb260-4" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">3</span>]] <span class="ot">&lt;-</span> <span class="st">&quot;Hello R!&quot;</span></span>
 <span id="cb260-5"><a href="interesting-differences.html#cb260-5" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">4</span>]] <span class="ot">&lt;-</span> <span class="st">&quot;Hello R!&quot;</span></span>
 <span id="cb260-6"><a href="interesting-differences.html#cb260-6" aria-hidden="true" tabindex="-1"></a>r_vector[[<span class="dv">5</span>]] <span class="ot">&lt;-</span> <span class="st">&quot;Hello R!&quot;</span></span></code></pre></div>
-<p><code>pryr::inspect()</code>를 이용하여 이 vector 객체의 메모리 사용을 살펴보면, 다섯 개 문자열 원소 모두 동일한 메모리 주소를 참조하는 것을 볼 수 있다. 이에 더하여, 그 메모리 주소가 앞서 생성했던 <code>r_string</code>의 원소인 문자열의 메모리 주소와 동일함을 확인할 수 있다. R에서는 하나의 R 세션 내에서 각 고유한 문자열값이 메모리 한 곳에만 저장되며, 나중에 동일한 문자열값을 다시 생성하려 하면, 중복하여 다른 위치에 생성하는 대신, 기존에 저장된 메모리를 참조한다. 따라서 매우 긴 동일한 문자열이 여러 이름 혹은 시퀀스의 여러 위치에 중복되는 경우, R은 효율적으로 메모리를 관리하기 위해 노력한다.</p>
+<p><code>pryr::inspect()</code>를 이용하여 이 vector 객체의 메모리 사용을 살펴보면, 다섯 개 문자열 원소 모두 동일한 메모리 주소를 참조하는 것을 볼 수 있다. 이에 더하여, 그 메모리 주소가 앞서 생성했던 <code>r_string</code>의 원소인 문자열의 메모리 주소와 동일함을 확인할 수 있다. R에서는 하나의 R 세션 내에서 각 고유한 문자열값이 메모리 한 곳에만 저장되며, 나중에 동일한 문자열값을 다시 생성하려 하면, 중복하여 다른 위치에 생성하는 대신, 기존에 저장된 메모리를 참조한다. 이 방식을 통해 R은 매우 긴 동일한 문자열이 여러 이름 혹은 시퀀스의 여러 위치에 중복되는 경우 메모리를 효율적으로 사용할 수 있을 것이다.</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="interesting-differences.html#cb261-1" aria-hidden="true" tabindex="-1"></a>pryr<span class="sc">::</span><span class="fu">inspect</span>(r_vector)</span></code></pre></div>
-<pre><code>## &lt;STRSXP 0x7fe2e03b2e48&gt;
-##   &lt;CHARSXP 0x7fe2e0347148&gt;
+<pre><code>## &lt;STRSXP 0x7f8bc34ec608&gt;
+##   &lt;CHARSXP 0x7f8bc3480948&gt;
 ##   attributes: 
-##     &lt;CHARSXP 0x7fe307135340&gt;
-##   [CHARSXP 0x7fe2e0347148]
-##   [CHARSXP 0x7fe2e0347148]
-##   [CHARSXP 0x7fe2e0347148]
-##   [CHARSXP 0x7fe2e0347148]</code></pre>
+##     &lt;CHARSXP 0x7f8bf097eb40&gt;
+##   [CHARSXP 0x7f8bc3480948]
+##   [CHARSXP 0x7f8bc3480948]
+##   [CHARSXP 0x7f8bc3480948]
+##   [CHARSXP 0x7f8bc3480948]</code></pre>
 
 </div>
 </div>
