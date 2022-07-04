@@ -272,7 +272,7 @@ id(py_string)
 ```
 
 ```
-## 4699474288
+## 4641962672
 ```
 
 ```python
@@ -296,7 +296,7 @@ for i in range(5):
 ```
 
 ```
-## [4699487664, 4699487664, 4699487664, 4699487664, 4699487664]
+## [4641976176, 4641976176, 4641976176, 4641976176, 4641976176]
 ```
 
 하지만, 만약 for문을 사용하지 않고 매번 새롭게 원소를 추가하는 경우라면, 파이썬은 같은 문자열을 다른 메모리 주소에 저장할 것이다. 
@@ -313,7 +313,7 @@ py_list[4] = "Hello Python!"
 ```
 
 ```
-## [4699496496, 4699496688, 4699496752, 4699496944, 4699497136]
+## [4641985008, 4641985072, 4641985264, 4641985456, 4641985648]
 ```
 
 이와 같이 같은 값의 immutable 문자열을 메모리의 여러 곳에 중복하여 저장하는 것은 경우에 따라 메모리의 사용이 다소 비효율적일 수 있음을 보인다.
@@ -361,10 +361,10 @@ pryr::inspect(r_string)
 ```
 
 ```
-## <STRSXP 0x7f8bc70f2748>
-##   <CHARSXP 0x7f8bc3480948>
+## <STRSXP 0x7fdd454f6668>
+##   <CHARSXP 0x7fdd622f6708>
 ##   attributes: 
-##     <CHARSXP 0x7f8bf097eb40>
+##     <CHARSXP 0x7fdd6017c740>
 ```
 
 여기에서 최상위 STRSXP는 vector를 나타내며, CHARSXP는 vector의 원소인 문자열을 나타낸다.
@@ -389,14 +389,14 @@ pryr::inspect(r_vector)
 ```
 
 ```
-## <STRSXP 0x7f8bc34ec608>
-##   <CHARSXP 0x7f8bc3480948>
+## <STRSXP 0x7fdd623624e8>
+##   <CHARSXP 0x7fdd622f6708>
 ##   attributes: 
-##     <CHARSXP 0x7f8bf097eb40>
-##   [CHARSXP 0x7f8bc3480948]
-##   [CHARSXP 0x7f8bc3480948]
-##   [CHARSXP 0x7f8bc3480948]
-##   [CHARSXP 0x7f8bc3480948]
+##     <CHARSXP 0x7fdd6017c740>
+##   [CHARSXP 0x7fdd622f6708]
+##   [CHARSXP 0x7fdd622f6708]
+##   [CHARSXP 0x7fdd622f6708]
+##   [CHARSXP 0x7fdd622f6708]
 ```
 
 
